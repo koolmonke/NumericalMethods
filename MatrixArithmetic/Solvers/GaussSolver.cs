@@ -25,7 +25,7 @@ namespace MatrixArithmetic.Solvers
             var fullMatrix = Eliminate(newMatrix, MatrixReductionForm.ReducedRowEchelonForm, 1)
                 .FullMatrix;
 
-            Vector result = MatrixArithmetic.Vector.WithSize(Matrix.N);
+            Vector result = new Vector(Matrix.N);
 
             for (int i = 0; i < Matrix.N; i++)
             {

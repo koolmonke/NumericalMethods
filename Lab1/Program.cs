@@ -10,7 +10,7 @@ namespace Lab1
         private static void Main()
         {
             Console.WriteLine("Матрица A");
-            var a = Matrix.From(new[,]
+            var a = new Matrix(new[,]
             {
                 { -2, 3.01, .12, -.11 },
                 { 2.92, -.17, .11, .22 },
@@ -20,7 +20,7 @@ namespace Lab1
             Console.WriteLine(a);
 
             Console.WriteLine("Вектор f");
-            var f = Vector.From(new[]
+            var f = new Vector(new[]
             {
                 4.13,
                 3.46,

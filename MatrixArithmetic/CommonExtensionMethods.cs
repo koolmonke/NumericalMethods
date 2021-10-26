@@ -1,6 +1,6 @@
 ﻿namespace MatrixArithmetic
 {
-    internal static class CommonExtensionMethods
+    public static class CommonExtensionMethods
     {
         public static T[,] CreateCopy<T>(this T[,] input)
         {
@@ -21,7 +21,7 @@
             return output;
         }
         
-        internal static T[][] ToJaggedArray<T>(this T[,] twoDimensionalArray)
+        public static T[][] ToJaggedArray<T>(this T[,] twoDimensionalArray)
         {
             int rowsFirstIndex = twoDimensionalArray.GetLowerBound(0);
             int rowsLastIndex = twoDimensionalArray.GetUpperBound(0);

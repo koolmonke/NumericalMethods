@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace MatrixArithmetic
 {
@@ -10,9 +11,11 @@ namespace MatrixArithmetic
         T[,] ToRepresentation();
 
         T this[int i, int j] { get; set; }
+        IVector<T> this[int i, Range j] { get; set; }
 
         IMatrix<T> From(IEnumerable<T> values);
 
+        
         IVector<T> ToVectorByColumn(int column = 0);
         IVector<T> ToVectorByRow(int row = 0);
 

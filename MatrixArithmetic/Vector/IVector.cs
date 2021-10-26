@@ -17,6 +17,12 @@ namespace MatrixArithmetic
         T[] ToRepresentation();
         string ToString();
         string ToString(string format);
-        IVector<double> Sub(IVector<double> doubles);
+        IVector<T> Sub(IVector<T> vector);
+        IVector<T> Sub(T item);
+        IVector<T> Add(IVector<T> vector);
+        IVector<T> Multiply(T value);
+        T Multiply(IVector<T> value);
+        IVector<T> MultiplyByItem(IVector<T> value);
+        
     }
 }

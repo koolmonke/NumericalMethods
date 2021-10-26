@@ -25,11 +25,8 @@ namespace MatrixArithmetic
 
         public double Norm() => Sqrt(this * this);
 
-        public static Vector WithSize(int n) => new Vector(n);
+        public IVector<double> Copy() => new Vector(Repr);
 
-        public static Vector From(double[] values) => new Vector(values);
-
-        public IVector<double> Copy() => From(Repr);
         public double[] ToRepresentation()
         {
             return new Vector(this.Repr).Repr;
@@ -47,30 +44,6 @@ namespace MatrixArithmetic
 
         public static Vector operator *(Vector self, double other) => self.Select(value => other * value).ToVector();
 
-        public static Vector operator *(double self, Vector other) => other * self;
-
-        public static Vector operator +(Vector self, Vector other)
-        {
-            if (self.N != other.N)
-            {
-                throw new VectorDifferentDimException();
-            }
-
-            return self.Zip(other).Select(pair => pair.First + pair.Second).ToVector();
-        }
-
-        public static Vector operator -(Vector self, Vector other)
-        {
-            if (self.N != other.N)
-            {
-                throw new VectorDifferentDimException();
-            }
-
-            return self.Zip(other).Select(pair => pair.First - pair.Second).ToVector();
-        }
-
-        public static Vector operator -(Vector self) => self.Select(value => -value).ToVector();
-
         public override string ToString()
         {
             return ToString(" #0.0000;-#0.000;0.0000");
@@ -81,20 +54,60 @@ namespace MatrixArithmetic
 
         public IVector<double> Sub(IVector<double> vector)
         {
-            return this - (vector as Vector)!;
+            if (this.N != vector.N)
+            {
+                throw new VectorDifferentDimException();
+            }
+
+            return this.Zip(vector).Select(pair => pair.First - pair.Second).ToVector();
+        }
+
+        public IVector<double> Add(IVector<double> vector)
+        {
+            if (this.N != vector.N)
+            {
+                throw new VectorDifferentDimException();
+            }
+
+            return this.Zip(vector).Select(pair => pair.First + pair.Second).ToVector();
+        }
+
+        public IVector<double> Multiply(double value)
+        {
+            return this.Select(item => item * value).ToVector();
+        }
+
+        public double Multiply(IVector<double> value)
+        {
+            if (this.N != value.N)
+            {
+                throw new VectorDifferentDimException();
+            }
+
+            return this.Zip(value).Select(item => item.First * item.Second).Sum();
+        }
+
+        public IVector<double> MultiplyByItem(IVector<double> value)
+        {
+            return this.Zip(value).Select(item => item.First * item.Second).ToVector();
+        }
+
+        public IVector<double> Sub(double item)
+        {
+            return this.Select(value => value - item).ToVector();
         }
 
 
-        private double[] Repr;
-
-        private Vector(double[] values)
+        public Vector(IEnumerable<double> values)
         {
             Repr = values.Select(value => value).ToArray();
         }
 
-        private Vector(int n)
+        public Vector(int n)
         {
             Repr = new double[n];
         }
+
+        private double[] Repr;
     }
 }

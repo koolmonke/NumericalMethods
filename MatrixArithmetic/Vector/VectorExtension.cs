@@ -5,7 +5,7 @@ namespace MatrixArithmetic
 {
     public static class VectorExt
     {
-        public static Vector ToVector(this IEnumerable<double> enumerable) => Vector.From(enumerable.ToArray());
+        public static Vector ToVector(this IEnumerable<double> enumerable) => new Vector(enumerable.ToArray());
 
         internal static IMatrix<double> ToMatrix(this IVector<double>[] vectors)
         {
@@ -15,7 +15,7 @@ namespace MatrixArithmetic
                 throw new VectorDifferentDimException();
             }
 
-            var result = Matrix.WithSize(firstVectorN, vectors.Length);
+            var result = new Matrix(firstVectorN, vectors.Length);
 
             for (int i = 0; i < vectors.Length; i++)
             {
@@ -31,7 +31,7 @@ namespace MatrixArithmetic
         public static Matrix ToMatrix(this IVector<double> vector)
         {
             var n = vector.N;
-            var result = Matrix.WithSize(n, 1);
+            var result = new Matrix(n, 1);
 
             for (int i = 0; i < n; i++)
             {

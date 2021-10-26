@@ -22,6 +22,27 @@ namespace MatrixArithmetic
             set => Repr[i, j] = value;
         }
 
+        public IVector<double> this[int i, Range j]
+        {
+            get
+            {
+                var result = new Vector(j.End.Value - j.Start.Value + 1);
+                for (int k = j.Start.Value; k < j.End.Value; k++)
+                {
+                    result[k-j.Start.Value] = this[i, k];
+                }
+
+                return result;
+            }
+            set
+            {
+                for (int k = j.Start.Value; k < j.End.Value; k++)
+                {
+                    this[i, k] = value[k];
+                }
+            }
+        }
+
         public IMatrix<double> From(IEnumerable<double> values)
         {
             using var enumerator = values.GetEnumerator();
@@ -48,7 +69,7 @@ namespace MatrixArithmetic
                 throw new VectorDifferentDimException();
             }
 
-            var vector = Vector.WithSize(this.N);
+            var vector = new Vector(this.N);
 
             for (int i = 0; i < this.N; i++)
             {
@@ -65,7 +86,7 @@ namespace MatrixArithmetic
                 throw new VectorDifferentDimException();
             }
 
-            var vector = Vector.WithSize(this.M);
+            var vector = new Vector(this.M);
 
             for (int i = 0; i < this.M; i++)
             {
@@ -77,7 +98,7 @@ namespace MatrixArithmetic
 
         public IMatrix<double> Multiply(IMatrix<double> right)
         {
-            var result = Matrix.WithSize(this.N, right.M);
+            var result = new Matrix(this.N, right.M);
 
             for (int i = 0; i < this.N; i++)
             {
@@ -100,7 +121,7 @@ namespace MatrixArithmetic
                 throw new MatrixDifferentDimException();
             }
 
-            return Matrix.WithSize(this.N, this.M).From(this.Zip(right).Select(item => item.First + item.Second));
+            return new Matrix(this.N, this.M).From(this.Zip(right).Select(item => item.First + item.Second));
         }
 
         public IMatrix<double> Sub(IMatrix<double> right)
@@ -110,7 +131,7 @@ namespace MatrixArithmetic
                 throw new MatrixDifferentDimException();
             }
 
-            return Matrix.WithSize(this.N, this.M).From(this.Zip(right).Select(item => item.First - item.Second));
+            return new Matrix(this.N, this.M).From(this.Zip(right).Select(item => item.First - item.Second));
         }
 
 
@@ -119,7 +140,7 @@ namespace MatrixArithmetic
         public IMatrix<double> ExtractColumns(int[] cols)
         {
             cols = cols.Distinct().ToArray();
-            IMatrix<double> output = Matrix.WithSize(this.N, cols.Length);
+            IMatrix<double> output = new Matrix(this.N, cols.Length);
 
             for (int row = 0; row < this.N; row++)
             {
@@ -136,11 +157,13 @@ namespace MatrixArithmetic
             return output;
         }
 
-        public IMatrix<double> ExtractColumns(int startCol, int endCol) => ExtractColumns(Enumerable.Range(startCol, endCol - startCol + 1).ToArray());
+        public IMatrix<double> ExtractColumns(int startCol, int endCol) =>
+            ExtractColumns(Enumerable.Range(startCol, endCol - startCol + 1).ToArray());
 
         public IMatrix<double> ConcatHorizontally(IMatrix<double> other)
         {
-            Matrix output = Matrix.WithSize(this.N, this.M + other.M);
+            int m = this.M + other.M;
+            Matrix output = new Matrix(this.N, m);
             for (int row = 0; row < this.N; row++)
             {
                 for (int col = 0; col < this.M + other.M; col++)
@@ -207,7 +230,7 @@ namespace MatrixArithmetic
 
         public static Matrix Identity(int n)
         {
-            var matrix = Matrix.WithSize(n, n);
+            var matrix = new Matrix(n, n);
 
             for (int i = 0; i < n; i++)
             {
@@ -219,15 +242,11 @@ namespace MatrixArithmetic
 
         public IMatrix<double> Copy() => new Matrix(Repr);
 
-        public static Matrix WithSize(int n, int m) => new Matrix(n, m);
-
-        public static Matrix From(double[,] values) => new Matrix(values);
-
         public IMatrix<double> Inv()
         {
             var vectors = ParallelEnumerable.Range(0, N).AsOrdered().Select(i =>
             {
-                var tmpVector = Vector.WithSize(N);
+                var tmpVector = new Vector(N);
 
                 tmpVector[i] = 1;
 
@@ -279,16 +298,16 @@ namespace MatrixArithmetic
         }
 
 
-        private double[,] Repr;
-
-        private Matrix(double[,] values)
+        public Matrix(double[,] values)
         {
             this.Repr = values.CreateCopy();
         }
 
-        private Matrix(int n, int m)
+        public Matrix(int n, int m)
         {
             Repr = new double[n, m];
         }
+
+        private double[,] Repr;
     }
 }

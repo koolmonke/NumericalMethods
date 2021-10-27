@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MatrixArithmetic.Solvers
 {
@@ -48,24 +50,10 @@ namespace MatrixArithmetic.Solvers
             return x.ToVector();
         }
 
-        private static double CalcErro(double[] a, double[] b)
-        {
-            double[] result = new double[a.Length];
-            for (int i = 0; i < a.Length; i++)
-            {
-                result[i] = Math.Abs(a[i] - b[i]);
-            }
-
-            int cont = 0; //um contador
-            double maior = 0; //o maior número contido no vetor
-            while (cont < a.Length)
-            {
-                maior = Math.Max(maior, result[cont]);
-                cont++;
-            }
-
-            return maior;
-        }
+        private static double CalcErro(IEnumerable<double> a, IEnumerable<double> b) =>
+            a.Zip(b)
+                .Select(item => Math.Abs(item.First - item.Second))
+                .Max();
 
         public IVector<double> Residual() => Matrix.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(Vector);
     }

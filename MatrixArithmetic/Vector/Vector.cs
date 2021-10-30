@@ -87,9 +87,17 @@ namespace MatrixArithmetic
             return this.Zip(value).Select(item => item.First * item.Second).Sum();
         }
 
-        public IVector<double> MultiplyByItem(IVector<double> value)
+        public IMatrix<double> ToMatrix()
         {
-            return this.Zip(value).Select(item => item.First * item.Second).ToVector();
+            var n = this.N;
+            var result = new Matrix(n, 1);
+
+            for (int i = 0; i < n; i++)
+            {
+                result[i, 0] = this[i];
+            }
+
+            return result;
         }
 
         public IVector<double> Sub(double item)

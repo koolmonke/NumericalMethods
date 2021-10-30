@@ -22,7 +22,7 @@ namespace MatrixArithmetic
         IVector<T> Add(IVector<T> vector);
         IVector<T> Multiply(T value);
         T Multiply(IVector<T> value);
-        IVector<T> MultiplyByItem(IVector<T> value);
-        
+
+        IMatrix<T> ToMatrix();
     }
 }

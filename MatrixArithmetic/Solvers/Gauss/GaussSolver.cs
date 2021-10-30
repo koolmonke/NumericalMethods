@@ -6,13 +6,13 @@ namespace MatrixArithmetic.Solvers.Gauss
     {
         public GaussSolver(IMatrix<double> matrix, IVector<double> forVector)
         {
-            this.Matrix = matrix;
-            this.Vector = forVector;
+            this.System = matrix;
+            this.FreeVector = forVector;
         }
 
-        public IVector<double> Vector { get; }
+        public IVector<double> FreeVector { get; }
 
-        public IMatrix<double> Matrix { get; }
+        public IMatrix<double> System { get; }
 
         private IVector<double>? _solutionVector;
 
@@ -20,23 +20,23 @@ namespace MatrixArithmetic.Solvers.Gauss
 
         public IVector<double> Solve()
         {
-            var newMatrix = Matrix.ConcatHorizontally(Vector.ToMatrix());
+            var newMatrix = System.ConcatHorizontally(FreeVector.ToMatrix());
 
             var fullMatrix = Eliminate(newMatrix, MatrixReductionForm.ReducedRowEchelonForm, 1)
                 .FullMatrix;
 
-            Vector result = new Vector(Matrix.N);
+            Vector result = new Vector(System.N);
 
-            for (int i = 0; i < Matrix.N; i++)
+            for (int i = 0; i < System.N; i++)
             {
-                result[i] = fullMatrix[i, Matrix.N];
+                result[i] = fullMatrix[i, System.N];
             }
 
             return result;
         }
 
 
-        public IVector<double> Residual() => Matrix.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(Vector);
+        public IVector<double> Residual() => System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
 
 
         /// <summary>

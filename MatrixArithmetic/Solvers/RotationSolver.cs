@@ -8,13 +8,13 @@ namespace MatrixArithmetic.Solvers
     {
         public RotationSolver(IMatrix<double> matrix, IVector<double> vector)
         {
-            Matrix = matrix;
-            Vector = vector;
+            System = matrix;
+            FreeVector = vector;
         }
 
-        public IMatrix<double> Matrix { get; }
+        public IMatrix<double> System { get; }
 
-        public IVector<double> Vector { get; }
+        public IVector<double> FreeVector { get; }
 
         private IVector<double>? _solutionVector;
 
@@ -22,24 +22,24 @@ namespace MatrixArithmetic.Solvers
 
         public IVector<double> Solve()
         {
-            double[] x0 = new double[Matrix.N];
+            double[] x0 = new double[System.N];
             double[] x = (double[])x0.Clone();
             double erro = double.MaxValue;
 
 
             while (erro >= Constants.Epsilon)
             {
-                for (int i = 0; i < Matrix.N; i++)
+                for (int i = 0; i < System.N; i++)
                 {
                     double soma = 0;
-                    for (int j = 0; j < Matrix.M; j++)
+                    for (int j = 0; j < System.M; j++)
                     {
                         if (i != j)
                         {
-                            soma += Matrix[i, j] * x0[j] / Matrix[i, i];
+                            soma += System[i, j] * x0[j] / System[i, i];
                         }
 
-                        x[i] = Vector[i] / Matrix[i, i] - soma;
+                        x[i] = FreeVector[i] / System[i, i] - soma;
                     }
                 }
 
@@ -55,6 +55,6 @@ namespace MatrixArithmetic.Solvers
                 .Select(item => Math.Abs(item.First - item.Second))
                 .Max();
 
-        public IVector<double> Residual() => Matrix.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(Vector);
+        public IVector<double> Residual() => System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
     }
 }

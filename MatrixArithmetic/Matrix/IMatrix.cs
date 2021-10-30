@@ -45,6 +45,10 @@ namespace MatrixArithmetic
 
         IVector<T> Solve(IVector<T> fVector);
 
+        IVector<T> GetColumn(int index);
+        
+        
+
         T Det();
         IMatrix<T> Copy();
         IMatrix<T> Inv();

@@ -29,7 +29,7 @@ namespace MatrixArithmetic
                 var result = new Vector(j.End.Value - j.Start.Value + 1);
                 for (int k = j.Start.Value; k < j.End.Value; k++)
                 {
-                    result[k-j.Start.Value] = this[i, k];
+                    result[k - j.Start.Value] = this[i, k];
                 }
 
                 return result;
@@ -136,6 +136,18 @@ namespace MatrixArithmetic
 
 
         public IVector<double> Solve(IVector<double> fVector) => new GaussSolver(this, fVector).SolutionVector;
+
+        public IVector<double> GetColumn(int index)
+        {
+            var vector = new Vector(M);
+
+            for (int i = 0; i < M; i++)
+            {
+                vector[i] = this[index, i];
+            }
+
+            return vector;
+        }
 
         public IMatrix<double> ExtractColumns(int[] cols)
         {

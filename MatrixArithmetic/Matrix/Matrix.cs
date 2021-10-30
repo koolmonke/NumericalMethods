@@ -265,7 +265,19 @@ namespace MatrixArithmetic
                 return this.Solve(tmpVector);
             }).ToArray();
 
-            return vectors.ToMatrix();
+            var firstVectorN = vectors[0].N;
+
+            var result = new Matrix(firstVectorN, vectors.Length);
+
+            for (int i = 0; i < vectors.Length; i++)
+            {
+                for (int j = 0; j < firstVectorN; j++)
+                {
+                    result[j, i] = vectors[i][j];
+                }
+            }
+
+            return result;
         }
 
 
@@ -308,7 +320,6 @@ namespace MatrixArithmetic
 
             return builder.ToString();
         }
-
 
         public Matrix(double[,] values)
         {

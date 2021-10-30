@@ -1,12 +1,13 @@
 ﻿using System;
 using MatrixArithmetic;
+using MatrixArithmetic.Norms;
 using MatrixArithmetic.Solvers;
 
 namespace Lab2
 {
     class Program
     {
-        static void Main()
+        private static void Main()
         {
             var a = new Matrix(new double[,]
             {
@@ -24,10 +25,18 @@ namespace Lab2
                 69
             });
 
-            var solver = new RotationSolver(a, f);
+            var rotationSolver = new RotationSolver(a, f);
+
+            Console.WriteLine("Решение методом вращений");
+            Console.WriteLine(rotationSolver.SolutionVector);
+            Console.WriteLine(rotationSolver.Residual());
+
+            var simpleIterationSolver = new SimpleIterationSolver(new TaxiCabNorm(), a, f);
             
-            Console.WriteLine(solver.SolutionVector);
-            Console.WriteLine(solver.Residual());
+            Console.WriteLine("Решение методом простых итераций");
+            Console.WriteLine(rotationSolver.SolutionVector);
+            Console.WriteLine(simpleIterationSolver.Residual());
+
         }
     }
 }

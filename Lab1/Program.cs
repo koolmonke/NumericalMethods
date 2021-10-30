@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using MatrixArithmetic;
-using MatrixArithmetic.Solvers;
+using MatrixArithmetic.Solvers.Gauss;
 
 namespace Lab1
 {

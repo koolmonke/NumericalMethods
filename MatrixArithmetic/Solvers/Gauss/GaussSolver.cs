@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MatrixArithmetic.Solvers
+namespace MatrixArithmetic.Solvers.Gauss
 {
     public class GaussSolver : ISolver<double>
     {

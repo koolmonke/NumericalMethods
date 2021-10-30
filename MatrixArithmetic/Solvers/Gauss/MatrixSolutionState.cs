@@ -1,4 +1,4 @@
-﻿namespace MatrixArithmetic
+﻿namespace MatrixArithmetic.Solvers.Gauss
 {
     public enum MatrixSolutionState
     {

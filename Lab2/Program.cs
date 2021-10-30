@@ -5,7 +5,7 @@ using MatrixArithmetic.Solvers;
 
 namespace Lab2
 {
-    class Program
+    internal static class Program
     {
         private static void Main()
         {

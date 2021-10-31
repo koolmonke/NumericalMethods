@@ -22,39 +22,39 @@ namespace MatrixArithmetic.Solvers
 
         public IVector<double> Solve()
         {
-            double[] x0 = new double[System.N];
-            double[] x = (double[])x0.Clone();
-            double erro = double.MaxValue;
+            IVector<double> x0 = new Vector(System.N);
+            IVector<double> x = new Vector(System.N);
+            double error;
 
-
-            while (erro >= Constants.Epsilon)
+            do
             {
                 for (int i = 0; i < System.N; i++)
                 {
-                    double soma = 0;
+                    double sum = 0;
                     for (int j = 0; j < System.M; j++)
                     {
                         if (i != j)
                         {
-                            soma += System[i, j] * x0[j] / System[i, i];
+                            sum += System[i, j] * x0[j] / System[i, i];
                         }
 
-                        x[i] = FreeVector[i] / System[i, i] - soma;
+                        x[i] = FreeVector[i] / System[i, i] - sum;
                     }
                 }
 
-                erro = CalcErro(x, x0);
-                x0 = (double[])x.Clone();
-            }
+                error = CalcError(x, x0);
+                x0 = x.Copy();
+            } while (error >= Constants.Epsilon);
 
             return x.ToVector();
         }
 
-        private static double CalcErro(IEnumerable<double> a, IEnumerable<double> b) =>
+        private static double CalcError(IEnumerable<double> a, IEnumerable<double> b) =>
             a.Zip(b)
                 .Select(item => Math.Abs(item.First - item.Second))
                 .Max();
 
-        public IVector<double> Residual() => System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
+        public IVector<double> Residual() =>
+            System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
     }
 }

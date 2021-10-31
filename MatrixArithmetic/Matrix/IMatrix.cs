@@ -22,7 +22,7 @@ namespace MatrixArithmetic
 
         IMatrix<T> Multiply(IMatrix<T> right);
 
-        public void SwitchRows(int row1, int row2)
+        void SwitchRows(int row1, int row2)
         {
             if (row1 == row2)
                 return;

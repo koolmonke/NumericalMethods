@@ -258,9 +258,10 @@ namespace MatrixArithmetic
         {
             var vectors = ParallelEnumerable.Range(0, N).AsOrdered().Select(i =>
             {
-                var tmpVector = new Vector(N);
-
-                tmpVector[i] = 1;
+                var tmpVector = new Vector(N)
+                {
+                    [i] = 1
+                };
 
                 return this.Solve(tmpVector);
             }).ToArray();

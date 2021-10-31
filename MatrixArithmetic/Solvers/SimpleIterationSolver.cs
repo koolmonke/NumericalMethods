@@ -6,13 +6,12 @@ namespace MatrixArithmetic.Solvers
 {
     public class SimpleIterationSolver : ISolver<double>
     {
-        private double _tau;
-
         public SimpleIterationSolver(INorma norma, IMatrix<double> matrix, IVector<double> vector)
         {
             Norma = norma;
             System = matrix;
             FreeVector = vector;
+            _tau = 2 / Norma.MatrixNorm(System);
         }
 
         public INorma Norma { get; }
@@ -24,21 +23,22 @@ namespace MatrixArithmetic.Solvers
 
         public IVector<double> Solve()
         {
-            _tau = 2 / Norma.MatrixNorm(System);
             var guess = new RotationSolver(System, FreeVector).SolutionVector.Select(Truncate).ToVector();
 
-            var xk = guess.Copy();
+            var xk = (IVector<double>)guess;
             Vector xkp;
             do
             {
                 xkp = xk.ToVector();
-                xk = FreeVector.Sub(System.Multiply(xk.ToMatrix()).ToVector()).Select(item => _tau * item).ToVector()
-                    .Add(xk);
+                xk = FreeVector.Sub(System.Multiply(xk.ToMatrix()).ToVector()).Multiply(_tau).Add(xk);
             } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-5);
 
             return xk;
         }
 
-        public IVector<double> Residual() => System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
+        public IVector<double> Residual() =>
+            System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
+
+        private readonly double _tau;
     }
 }

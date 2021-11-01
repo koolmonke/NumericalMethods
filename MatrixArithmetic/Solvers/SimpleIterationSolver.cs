@@ -25,13 +25,13 @@ namespace MatrixArithmetic.Solvers
         {
             var guess = new RotationSolver(System, FreeVector).SolutionVector.Select(Truncate).ToVector();
 
-            var xk = (IVector<double>)guess;
-            Vector xkp;
+            IVector<double> xk = guess;
+            IVector<double> xkp;
             do
             {
-                xkp = xk.ToVector();
+                xkp = xk.Copy();
                 xk = FreeVector.Sub(System.Multiply(xk.ToMatrix()).ToVector()).Multiply(_tau).Add(xk);
-            } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-5);
+            } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-6);
 
             return xk;
         }

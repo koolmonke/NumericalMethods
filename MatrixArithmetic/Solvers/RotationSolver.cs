@@ -6,11 +6,14 @@ namespace MatrixArithmetic.Solvers
 {
     public class RotationSolver : ISolver<double>
     {
-        public RotationSolver(IMatrix<double> matrix, IVector<double> vector)
+        public RotationSolver(IMatrix<double> matrix, IVector<double> vector, double epsilon = Constants.Epsilon)
         {
             System = matrix;
             FreeVector = vector;
+            LocalEpsilon = epsilon;
         }
+
+        private double LocalEpsilon { get; }
 
         public IMatrix<double> System { get; }
 
@@ -44,7 +47,7 @@ namespace MatrixArithmetic.Solvers
 
                 error = CalcError(x, x0);
                 x0 = x.Copy();
-            } while (error >= Constants.Epsilon);
+            } while (error >= LocalEpsilon);
 
             return x.ToVector();
         }

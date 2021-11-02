@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using MatrixArithmetic.Norms;
 using static System.Math;
 
@@ -23,7 +24,7 @@ namespace MatrixArithmetic.Solvers
 
         public IVector<double> Solve()
         {
-            var guess = new RotationSolver(System, FreeVector).SolutionVector.Select(Truncate).ToVector();
+            var guess = new RotationSolver(System, FreeVector, 0.1).SolutionVector;
 
             IVector<double> xk = guess;
             IVector<double> xkp;

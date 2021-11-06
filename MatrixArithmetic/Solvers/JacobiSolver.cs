@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using MatrixArithmetic.Norms;
 
 namespace MatrixArithmetic.Solvers
 {
@@ -52,10 +52,11 @@ namespace MatrixArithmetic.Solvers
             return x.ToVector();
         }
 
-        private static double CalcError(IEnumerable<double> a, IEnumerable<double> b) =>
-            a.Zip(b)
-                .Select(item => Math.Abs(item.First - item.Second))
-                .Max();
+        private static double CalcError(IEnumerable<double> a, IEnumerable<double> b)
+        {
+            return new TaxiCabNorm().VectorNorm(a.Zip(b)
+                .Select(item => item.First - item.Second).ToVector());
+        }
 
         public Vector Residual() =>
             System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);

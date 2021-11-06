@@ -7,7 +7,7 @@ using static System.Math;
 
 namespace MatrixArithmetic
 {
-    public class Vector : IVector<double>
+    public class Vector : IEnumerable<double>
     {
         IEnumerator<double> IEnumerable<double>.GetEnumerator() => ((IEnumerable<double>)Repr).GetEnumerator();
 
@@ -21,11 +21,11 @@ namespace MatrixArithmetic
             set => Repr[i] = value;
         }
 
-        public IVector<double> this[Range i] => new Vector(Repr[i]);
+        public Vector this[Range i] => new Vector(Repr[i]);
 
         public double Norm() => Sqrt(this * this);
 
-        public IVector<double> Copy() => new Vector(Repr);
+        public Vector Copy() => new Vector(Repr);
 
         public double[] ToRepresentation()
         {
@@ -52,7 +52,7 @@ namespace MatrixArithmetic
         public string ToString(string format) => string.Join('\n',
             this.Select(value => value.ToString(format, CultureInfo.InvariantCulture)));
 
-        public IVector<double> Sub(IVector<double> vector)
+        public Vector Sub(Vector vector)
         {
             if (this.N != vector.N)
             {
@@ -62,7 +62,7 @@ namespace MatrixArithmetic
             return this.Zip(vector).Select(pair => pair.First - pair.Second).ToVector();
         }
 
-        public IVector<double> Add(IVector<double> vector)
+        public Vector Add(Vector vector)
         {
             if (this.N != vector.N)
             {
@@ -72,12 +72,12 @@ namespace MatrixArithmetic
             return this.Zip(vector).Select(pair => pair.First + pair.Second).ToVector();
         }
 
-        public IVector<double> Multiply(double value)
+        public Vector Multiply(double value)
         {
             return this.Select(item => item * value).ToVector();
         }
 
-        public double Multiply(IVector<double> value)
+        public double Multiply(Vector value)
         {
             if (this.N != value.N)
             {
@@ -87,7 +87,7 @@ namespace MatrixArithmetic
             return this.Zip(value).Select(item => item.First * item.Second).Sum();
         }
 
-        public IMatrix<double> ToMatrix()
+        public Matrix ToMatrix()
         {
             var n = this.N;
             var result = new Matrix(n, 1);
@@ -100,7 +100,7 @@ namespace MatrixArithmetic
             return result;
         }
 
-        public IVector<double> Sub(double item)
+        public Vector Sub(double item)
         {
             return this.Select(value => value - item).ToVector();
         }

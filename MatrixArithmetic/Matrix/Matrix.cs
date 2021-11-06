@@ -8,13 +8,11 @@ using MatrixArithmetic.Solvers.Gauss;
 
 namespace MatrixArithmetic
 {
-    public class Matrix : IMatrix<double>
+    public class Matrix : IEnumerable<double>
     {
         public int N => this.Repr.GetLength(0);
 
         public int M => this.Repr.GetLength(1);
-
-        public double[,] ToRepresentation() => new Matrix(this.Repr).Repr;
 
         public double this[int i, int j]
         {
@@ -22,28 +20,19 @@ namespace MatrixArithmetic
             set => Repr[i, j] = value;
         }
 
-        public IVector<double> this[int i, Range j]
+        public Vector this[int index]
         {
-            get
-            {
-                var result = new Vector(j.End.Value - j.Start.Value + 1);
-                for (int k = j.Start.Value; k < j.End.Value; k++)
-                {
-                    result[k - j.Start.Value] = this[i, k];
-                }
-
-                return result;
-            }
+            get => GetColumn(index);
             set
             {
-                for (int k = j.Start.Value; k < j.End.Value; k++)
+                for (int i = 0; i < M; i++)
                 {
-                    this[i, k] = value[k];
+                    this[index, i] = value[index];
                 }
             }
         }
 
-        public IMatrix<double> From(IEnumerable<double> values)
+        public Matrix From(IEnumerable<double> values)
         {
             using var enumerator = values.GetEnumerator();
             for (int i = 0; i < N; i++)
@@ -62,7 +51,7 @@ namespace MatrixArithmetic
             return this;
         }
 
-        public IVector<double> ToVectorByColumn(int column = 0)
+        public Vector ToVectorByColumn(int column = 0)
         {
             if (this.M != 1)
             {
@@ -79,7 +68,7 @@ namespace MatrixArithmetic
             return vector;
         }
 
-        public IVector<double> ToVectorByRow(int row = 0)
+        public Vector ToVectorByRow(int row = 0)
         {
             if (this.M != 1)
             {
@@ -96,7 +85,7 @@ namespace MatrixArithmetic
             return vector;
         }
 
-        public IMatrix<double> Multiply(IMatrix<double> right)
+        public Matrix Multiply(Matrix right)
         {
             var result = new Matrix(this.N, right.M);
 
@@ -114,7 +103,7 @@ namespace MatrixArithmetic
             return result;
         }
 
-        public IMatrix<double> Add(IMatrix<double> right)
+        public Matrix Add(Matrix right)
         {
             if ((this.N, this.M) != (right.N, right.M))
             {
@@ -124,7 +113,7 @@ namespace MatrixArithmetic
             return new Matrix(this.N, this.M).From(this.Zip(right).Select(item => item.First + item.Second));
         }
 
-        public IMatrix<double> Sub(IMatrix<double> right)
+        public Matrix Sub(Matrix right)
         {
             if ((this.N, this.M) != (right.N, right.M))
             {
@@ -135,9 +124,9 @@ namespace MatrixArithmetic
         }
 
 
-        public IVector<double> Solve(IVector<double> fVector) => new GaussSolver(this, fVector).SolutionVector;
+        public Vector Solve(Vector fVector) => new GaussSolver(this, fVector).SolutionVector;
 
-        public IVector<double> GetColumn(int index)
+        public Vector GetColumn(int index)
         {
             var vector = new Vector(M);
 
@@ -149,10 +138,10 @@ namespace MatrixArithmetic
             return vector;
         }
 
-        public IMatrix<double> ExtractColumns(int[] cols)
+        public Matrix ExtractColumns(int[] cols)
         {
             cols = cols.Distinct().ToArray();
-            IMatrix<double> output = new Matrix(this.N, cols.Length);
+            Matrix output = new Matrix(this.N, cols.Length);
 
             for (int row = 0; row < this.N; row++)
             {
@@ -169,10 +158,21 @@ namespace MatrixArithmetic
             return output;
         }
 
-        public IMatrix<double> ExtractColumns(int startCol, int endCol) =>
+        public void SwitchRows(int row1, int row2)
+        {
+            if (row1 == row2)
+                return;
+
+            for (int col = 0; col < M; col++)
+            {
+                (this[row1, col], this[row2, col]) = (this[row2, col], this[row1, col]);
+            }
+        }
+
+        public Matrix ExtractColumns(int startCol, int endCol) =>
             ExtractColumns(Enumerable.Range(startCol, endCol - startCol + 1).ToArray());
 
-        public IMatrix<double> ConcatHorizontally(IMatrix<double> other)
+        public Matrix ConcatHorizontally(Matrix other)
         {
             int m = this.M + other.M;
             Matrix output = new Matrix(this.N, m);
@@ -190,9 +190,23 @@ namespace MatrixArithmetic
             return output;
         }
 
+        public Matrix Transpose()
+        {
+            var result = new Matrix(N, M);
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < M; j++)
+                {
+                    result[i, j] = this[j, i];
+                }
+            }
+
+            return result;
+        }
+
         public double Det()
         {
-            IMatrix<double> matrix = this.Copy();
+            Matrix matrix = this.Copy();
             var n = matrix.N;
             double det = 1;
             for (int i = 0; i < n; i++)
@@ -252,9 +266,9 @@ namespace MatrixArithmetic
             return matrix;
         }
 
-        public IMatrix<double> Copy() => new Matrix(Repr);
+        public Matrix Copy() => new Matrix(Repr);
 
-        public IMatrix<double> Inv()
+        public Matrix Inv()
         {
             var vectors = ParallelEnumerable.Range(0, N).AsOrdered().Select(i =>
             {

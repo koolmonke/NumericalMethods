@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace MatrixArithmetic.Solvers
 {
-    public class RotationSolver : ISolver<double>
+    public class JacobiSolver : ISolver
     {
-        public RotationSolver(IMatrix<double> matrix, IVector<double> vector, double epsilon = Constants.Epsilon)
+        public JacobiSolver(Matrix matrix, Vector vector, double epsilon = Constants.Epsilon)
         {
             System = matrix;
             FreeVector = vector;
@@ -15,18 +15,18 @@ namespace MatrixArithmetic.Solvers
 
         private double LocalEpsilon { get; }
 
-        public IMatrix<double> System { get; }
+        public Matrix System { get; }
 
-        public IVector<double> FreeVector { get; }
+        public Vector FreeVector { get; }
 
-        private IVector<double>? _solutionVector;
+        private Vector? _solutionVector;
 
-        public IVector<double> SolutionVector => _solutionVector ??= Solve();
+        public Vector SolutionVector => _solutionVector ??= Solve();
 
-        public IVector<double> Solve()
+        public Vector Solve()
         {
-            IVector<double> x0 = new Vector(System.N);
-            IVector<double> x = new Vector(System.N);
+            Vector x0 = new Vector(System.N);
+            Vector x = new Vector(System.N);
             double error;
 
             do
@@ -57,7 +57,7 @@ namespace MatrixArithmetic.Solvers
                 .Select(item => Math.Abs(item.First - item.Second))
                 .Max();
 
-        public IVector<double> Residual() =>
+        public Vector Residual() =>
             System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
     }
 }

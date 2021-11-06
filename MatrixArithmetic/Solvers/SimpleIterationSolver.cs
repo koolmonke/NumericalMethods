@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using MatrixArithmetic.Norms;
 using static System.Math;
 
 namespace MatrixArithmetic.Solvers
 {
-    public class SimpleIterationSolver : ISolver<double>
+    public class SimpleIterationSolver : ISolver
     {
-        public SimpleIterationSolver(INorma norma, IMatrix<double> matrix, IVector<double> vector)
+        public SimpleIterationSolver(INorma norma, Matrix matrix, Vector vector)
         {
             Norma = norma;
             System = matrix;
@@ -16,18 +15,18 @@ namespace MatrixArithmetic.Solvers
         }
 
         public INorma Norma { get; }
-        public IMatrix<double> System { get; }
-        public IVector<double> FreeVector { get; }
+        public Matrix System { get; }
+        public Vector FreeVector { get; }
 
-        private IVector<double>? _solution;
-        public IVector<double> SolutionVector => _solution ??= Solve();
+        private Vector? _solution;
+        public Vector SolutionVector => _solution ??= Solve();
 
-        public IVector<double> Solve()
+        public Vector Solve()
         {
-            var guess = new RotationSolver(System, FreeVector, 0.1).SolutionVector;
+            var guess = new GivensMethod(System, FreeVector).SolutionVector.Select(Truncate).ToVector();
 
-            IVector<double> xk = guess;
-            IVector<double> xkp;
+            Vector xk = guess;
+            Vector xkp;
             do
             {
                 xkp = xk.Copy();
@@ -37,7 +36,7 @@ namespace MatrixArithmetic.Solvers
             return xk;
         }
 
-        public IVector<double> Residual() =>
+        public Vector Residual() =>
             System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
 
         private readonly double _tau;

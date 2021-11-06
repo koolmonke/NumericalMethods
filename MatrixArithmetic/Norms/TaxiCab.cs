@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using static System.Math;
-
 namespace MatrixArithmetic.Norms
 {
     public class TaxiCabNorm : INorma
     {
-        public double VectorNorm(IVector<double> vector) => vector.Sum(Abs);
+        public double VectorNorm(Vector vector) => vector.Sum(Abs);
 
-        public double MatrixNorm(IMatrix<double> matrix)
+        public double MatrixNorm(Matrix matrix)
         {
-            IEnumerable<double> ColumnNorm(IMatrix<double> columns)
+            IEnumerable<double> ColumnNorm(Matrix columns)
             {
                 for (var i = 0; i < columns.N; i++)
                 {

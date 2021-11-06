@@ -1,15 +1,15 @@
 ﻿namespace MatrixArithmetic.Solvers
 {
-    public interface ISolver<T>
+    public interface ISolver
     {
-        public IMatrix<T> System { get; }
+        public Matrix System { get; }
         
-        public IVector<T> FreeVector { get; }
+        public Vector FreeVector { get; }
         
-        public IVector<T> SolutionVector { get; }
+        public Vector SolutionVector { get; }
 
-        IVector<T> Solve();
+        Vector Solve();
 
-        IVector<T> Residual();
+        Vector Residual();
     }
 }

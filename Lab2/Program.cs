@@ -25,7 +25,7 @@ namespace Lab2
                 69
             });
 
-            var rotationSolver = new RotationSolver(a, f);
+            var rotationSolver = new GivensMethod(a, f);
 
             Console.WriteLine("Решение методом вращений");
             Console.WriteLine(rotationSolver.SolutionVector);
@@ -36,6 +36,7 @@ namespace Lab2
             Console.WriteLine("Решение методом простых итераций");
             Console.WriteLine(rotationSolver.SolutionVector);
             Console.WriteLine(simpleIterationSolver.Residual());
+
 
         }
     }

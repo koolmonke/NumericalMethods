@@ -2,23 +2,23 @@
 
 namespace MatrixArithmetic.Solvers.Gauss
 {
-    public class GaussSolver : ISolver<double>
+    public class GaussSolver : ISolver
     {
-        public GaussSolver(IMatrix<double> matrix, IVector<double> forVector)
+        public GaussSolver(Matrix matrix, Vector forVector)
         {
             this.System = matrix;
             this.FreeVector = forVector;
         }
 
-        public IVector<double> FreeVector { get; }
+        public Vector FreeVector { get; }
 
-        public IMatrix<double> System { get; }
+        public Matrix System { get; }
 
-        private IVector<double>? _solutionVector;
+        private Vector? _solutionVector;
 
-        public IVector<double> SolutionVector => _solutionVector ??= this.Solve();
+        public Vector SolutionVector => _solutionVector ??= this.Solve();
 
-        public IVector<double> Solve()
+        public Vector Solve()
         {
             var newMatrix = System.ConcatHorizontally(FreeVector.ToMatrix());
 
@@ -36,13 +36,13 @@ namespace MatrixArithmetic.Solvers.Gauss
         }
 
 
-        public IVector<double> Residual() => System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
+        public Vector Residual() => System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
 
 
         /// <summary>
         /// Reduces matrix to row-echelon (REF/Gauss) or reduced row-echelon (RREF/Gauss-Jordan) form and solves for augmented columns (if any.)
         /// </summary>
-        private static MatrixEliminationResult Eliminate(IMatrix<double> input, MatrixReductionForm form,
+        private static MatrixEliminationResult Eliminate(Matrix input, MatrixReductionForm form,
             int augmentedCols = 0)
         {
             var result = new MatrixEliminationResult();
@@ -135,7 +135,7 @@ namespace MatrixArithmetic.Solvers.Gauss
             return result;
         }
 
-        private static int? FindPivot(IMatrix<double> input, int startRow, int col, int rowCount)
+        private static int? FindPivot(Matrix input, int startRow, int col, int rowCount)
         {
             for (int i = startRow; i < rowCount; i++)
             {
@@ -146,7 +146,7 @@ namespace MatrixArithmetic.Solvers.Gauss
             return null;
         }
 
-        private static void ReduceRow(IMatrix<double> input, int row, int col, int colCount)
+        private static void ReduceRow(Matrix input, int row, int col, int colCount)
         {
             var coefficient = 1.0 / input[row, col];
 
@@ -157,7 +157,7 @@ namespace MatrixArithmetic.Solvers.Gauss
                 input[row, col] *= coefficient;
         }
 
-        private static void EliminateRow(IMatrix<double> input, int row, int pivotRow, int pivotCol, int colCount)
+        private static void EliminateRow(Matrix input, int row, int pivotRow, int pivotCol, int colCount)
         {
             if (pivotRow == row)
                 return;

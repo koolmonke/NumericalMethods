@@ -6,11 +6,11 @@ namespace MatrixArithmetic.Solvers.Gauss
         /// <summary>
         /// Full matrix along with the augmented columns.
         /// </summary>
-        public IMatrix<double> FullMatrix { get; internal set; }
+        public Matrix FullMatrix { get; internal set; }
 
         // Augmentation
         public int AugmentedColumnCount { get; internal set; }
-        public IMatrix<double> AugmentedColumns { get; internal set; }
+        public Matrix AugmentedColumns { get; internal set; }
 
 
         public int TotalRowCount { get; internal set; }

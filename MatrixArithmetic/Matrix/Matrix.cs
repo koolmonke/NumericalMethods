@@ -20,18 +20,6 @@ namespace MatrixArithmetic
             set => Repr[i, j] = value;
         }
 
-        public Vector this[int index]
-        {
-            get => GetColumn(index);
-            set
-            {
-                for (int i = 0; i < M; i++)
-                {
-                    this[index, i] = value[index];
-                }
-            }
-        }
-
         public Matrix From(IEnumerable<double> values)
         {
             using var enumerator = values.GetEnumerator();
@@ -93,7 +81,7 @@ namespace MatrixArithmetic
             {
                 for (int j = 0; j < right.M; j++)
                 {
-                    for (int k = 0; k < this.N; k++)
+                    for (int k = 0; k < right.N; k++)
                     {
                         result[i, j] += this[i, k] * right[k, j];
                     }
@@ -102,6 +90,25 @@ namespace MatrixArithmetic
 
             return result;
         }
+        
+        public static Matrix operator *(Matrix left, Matrix right) => left.Multiply(right);
+        
+        public Vector Multiply(Vector right)
+        {
+           var result = new Vector(this.N);
+
+            for (int i = 0; i < this.N; i++)
+            {
+                for (int k = 0; k < this.M; k++)
+                {
+                    result[i] += this[i, k] * right[k];
+                }
+            }
+
+            return result;
+        }
+        
+        public static Vector operator *(Matrix left, Vector right) => left.Multiply(right);
 
         public Matrix Add(Matrix right)
         {
@@ -113,6 +120,8 @@ namespace MatrixArithmetic
             return new Matrix(this.N, this.M).From(this.Zip(right).Select(item => item.First + item.Second));
         }
 
+        public static Matrix operator +(Matrix left, Matrix right) => left.Add(right);
+
         public Matrix Sub(Matrix right)
         {
             if ((this.N, this.M) != (right.N, right.M))
@@ -122,6 +131,8 @@ namespace MatrixArithmetic
 
             return new Matrix(this.N, this.M).From(this.Zip(right).Select(item => item.First - item.Second));
         }
+
+        public static Matrix operator -(Matrix left, Matrix right) => left.Sub(right);
 
 
         public Vector Solve(Vector fVector) => new GaussSolver(this, fVector).SolutionVector;

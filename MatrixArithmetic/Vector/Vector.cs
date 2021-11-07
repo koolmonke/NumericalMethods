@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using static System.Math;
 
 namespace MatrixArithmetic
 {
@@ -23,14 +22,7 @@ namespace MatrixArithmetic
 
         public Vector this[Range i] => new Vector(Repr[i]);
 
-        public double Norm() => Sqrt(this * this);
-
         public Vector Copy() => new Vector(Repr);
-
-        public double[] ToRepresentation()
-        {
-            return new Vector(this.Repr).Repr;
-        }
 
         public static double operator *(Vector self, Vector other)
         {
@@ -49,7 +41,7 @@ namespace MatrixArithmetic
             return ToString(" #0.0000;-#0.000;0.0000");
         }
 
-        public string ToString(string format) => string.Join('\n',
+        public string ToString(string format) => string.Join(Environment.NewLine,
             this.Select(value => value.ToString(format, CultureInfo.InvariantCulture)));
 
         public Vector Sub(Vector vector)
@@ -62,6 +54,8 @@ namespace MatrixArithmetic
             return this.Zip(vector).Select(pair => pair.First - pair.Second).ToVector();
         }
 
+        public static Vector operator -(Vector left, Vector right) => left.Sub(right);
+
         public Vector Add(Vector vector)
         {
             if (this.N != vector.N)
@@ -72,20 +66,14 @@ namespace MatrixArithmetic
             return this.Zip(vector).Select(pair => pair.First + pair.Second).ToVector();
         }
 
+        public static Vector operator +(Vector left, Vector right) => left.Add(right);
+
+
         public Vector Multiply(double value)
         {
             return this.Select(item => item * value).ToVector();
         }
 
-        public double Multiply(Vector value)
-        {
-            if (this.N != value.N)
-            {
-                throw new VectorDifferentDimException();
-            }
-
-            return this.Zip(value).Select(item => item.First * item.Second).Sum();
-        }
 
         public Matrix ToMatrix()
         {

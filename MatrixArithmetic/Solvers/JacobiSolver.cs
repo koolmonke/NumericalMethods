@@ -13,7 +13,6 @@ namespace MatrixArithmetic.Solvers
             LocalEpsilon = epsilon;
         }
 
-        private double LocalEpsilon { get; }
 
         public Matrix System { get; }
 
@@ -52,13 +51,15 @@ namespace MatrixArithmetic.Solvers
             return x.ToVector();
         }
 
+        public Vector Residual() =>
+            System.Multiply(SolutionVector).Sub(FreeVector);
+
+        private double LocalEpsilon { get; }
+
         private static double CalcError(IEnumerable<double> a, IEnumerable<double> b)
         {
             return new TaxiCabNorm().VectorNorm(a.Zip(b)
                 .Select(item => item.First - item.Second).ToVector());
         }
-
-        public Vector Residual() =>
-            System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
     }
 }

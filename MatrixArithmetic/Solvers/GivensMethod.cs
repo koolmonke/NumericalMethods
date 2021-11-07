@@ -44,15 +44,14 @@ namespace MatrixArithmetic.Solvers
             return SolveUpper();
         }
 
-        public Vector Residual() => System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
+        public Vector Residual() => System.Multiply(SolutionVector).Sub(FreeVector);
 
         private Vector SolveUpper()
         {
             _q = _q.Transpose();
 
-            Matrix qb = _q.Multiply(_f.ToMatrix());
+            Vector qb = _q.Multiply(_f);
             var result = new Vector(qb.N);
-
 
             for (int i = qb.N - 1; i >= 0; i--)
             {
@@ -63,7 +62,7 @@ namespace MatrixArithmetic.Solvers
                     sum += result[j] * _a[i, j];
                 }
 
-                result[i] = (qb[i, 0] - sum) / _a[i, i];
+                result[i] = (qb[i] - sum) / _a[i, i];
             }
 
             return result;

@@ -30,14 +30,14 @@ namespace MatrixArithmetic.Solvers
             do
             {
                 xkp = xk.Copy();
-                xk = FreeVector.Sub(System.Multiply(xk.ToMatrix()).ToVector()).Multiply(_tau).Add(xk);
+                xk = FreeVector.Sub(System.Multiply(xk)).Multiply(_tau).Add(xk);
             } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-6);
 
             return xk;
         }
 
         public Vector Residual() =>
-            System.Multiply(SolutionVector.ToMatrix()).ToVectorByColumn().Sub(FreeVector);
+            System.Multiply(SolutionVector).Sub(FreeVector);
 
         private readonly double _tau;
     }

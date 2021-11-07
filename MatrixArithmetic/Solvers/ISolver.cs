@@ -10,6 +10,6 @@
 
         Vector Solve();
 
-        Vector Residual();
+        public Vector Residual() =>  System.Multiply(SolutionVector).Sub(FreeVector);
     }
 }

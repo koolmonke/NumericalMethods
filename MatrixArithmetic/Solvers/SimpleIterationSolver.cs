@@ -29,7 +29,7 @@ namespace MatrixArithmetic.Solvers
             Vector xkp;
             do
             {
-                xkp = xk.Copy();
+                xkp = xk;
                 xk = FreeVector.Sub(System.Multiply(xk)).Multiply(_tau).Add(xk);
             } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-6);
 

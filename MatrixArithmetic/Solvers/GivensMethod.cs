@@ -25,7 +25,7 @@ namespace MatrixArithmetic.Solvers
         public Vector SolutionVector => _solutionVector ??= Solve();
 
 
-        public Vector Solve()
+        private Vector Solve()
         {
             for (int j = 0; j < _a.N - 1; j++)
             {

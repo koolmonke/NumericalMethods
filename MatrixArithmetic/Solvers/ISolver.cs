@@ -9,8 +9,5 @@
         Vector SolutionVector { get; }
 
         Vector Residual { get; }
-
-        Vector Solve();
-
     }
 }

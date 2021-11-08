@@ -23,7 +23,7 @@ namespace MatrixArithmetic.Solvers
         public Vector SolutionVector => _solutionVector ??= Solve();
 
 
-        public Vector Solve()
+        private Vector Solve()
         {
             Vector x0 = new Vector(System.N);
             Vector x = new Vector(System.N);

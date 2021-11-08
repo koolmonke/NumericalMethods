@@ -18,7 +18,7 @@ namespace MatrixArithmetic.Solvers.Gauss
 
         public Vector SolutionVector => _solutionVector ??= this.Solve();
 
-        public Vector Solve()
+        private Vector Solve()
         {
             var newMatrix = System.ConcatHorizontally(FreeVector.ToMatrix());
 

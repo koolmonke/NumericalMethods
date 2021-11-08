@@ -21,7 +21,7 @@ namespace MatrixArithmetic.Solvers
         private Vector? _solution;
         public Vector SolutionVector => _solution ??= Solve();
 
-        public Vector Solve()
+        private Vector Solve()
         {
             var guess = new GivensMethod(System, FreeVector).SolutionVector.Select(Truncate).ToVector();
 

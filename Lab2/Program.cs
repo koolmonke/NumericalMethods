@@ -25,19 +25,31 @@ namespace Lab2
                 69
             });
 
+            Console.WriteLine("Матрица A:");
+            Console.WriteLine(a);
+
+            var taxiCabNorm = new TaxiCabNorm();
+            var matrixANorm = taxiCabNorm.MatrixNorm(a);
+            var matrixAInvNorm = taxiCabNorm.MatrixNorm(a.Inv());
+
+            Console.WriteLine($"Число обусловленности {matrixANorm * matrixAInvNorm}");
+
+            Console.WriteLine("Вектор f:");
+            Console.WriteLine(f);
+
             var rotationSolver = new GivensMethod(a, f);
 
             Console.WriteLine("Решение методом вращений");
             Console.WriteLine(rotationSolver.SolutionVector);
-            Console.WriteLine(rotationSolver.Residual());
+            Console.WriteLine("Вектор невязки для метода вращений");
+            Console.WriteLine(rotationSolver.Residual().ToString(" #0.000000000000;-#0.000000000000;0.000000000000"));
 
-            var simpleIterationSolver = new SimpleIterationSolver(new TaxiCabNorm(), a, f);
-            
+            var simpleIterationSolver = new SimpleIterationSolver(taxiCabNorm, a, f);
+
             Console.WriteLine("Решение методом простых итераций");
-            Console.WriteLine(rotationSolver.SolutionVector);
-            Console.WriteLine(simpleIterationSolver.Residual());
-
-
+            Console.WriteLine(simpleIterationSolver.SolutionVector);
+            Console.WriteLine("Вектор невязки для метода простых итераций");
+            Console.WriteLine(simpleIterationSolver.Residual().ToString(" #0.000000000000;-#0.000000000000;0.000000000000"));
         }
     }
 }

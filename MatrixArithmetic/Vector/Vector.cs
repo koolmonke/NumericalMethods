@@ -36,10 +36,9 @@ namespace MatrixArithmetic
 
         public static Vector operator *(Vector self, double other) => self.Select(value => other * value).ToVector();
 
-        public override string ToString()
-        {
-            return ToString(" #0.0000;-#0.000;0.0000");
-        }
+        public override string ToString() => ToString(" #0.0000;-#0.000;0.0000");
+
+        public string ToResidualString() => ToString(" #0.000000000000;-#0.000000000000;0.000000000000");
 
         public string ToString(string format) => string.Join(Environment.NewLine,
             this.Select(value => value.ToString(format, CultureInfo.InvariantCulture)));

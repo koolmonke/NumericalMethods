@@ -2,14 +2,15 @@
 {
     public interface ISolver
     {
-        public Matrix System { get; }
-        
-        public Vector FreeVector { get; }
-        
-        public Vector SolutionVector { get; }
+        Matrix System { get; }
+
+        Vector FreeVector { get; }
+
+        Vector SolutionVector { get; }
+
+        Vector Residual { get; }
 
         Vector Solve();
 
-        public Vector Residual() =>  System.Multiply(SolutionVector).Sub(FreeVector);
     }
 }

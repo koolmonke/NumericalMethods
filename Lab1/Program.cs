@@ -38,9 +38,8 @@ namespace Lab1
             Console.WriteLine(solver.SolutionVector);
 
             Console.WriteLine("Вектор невязки");
-            var residual = solver.Residual();
-            Console.WriteLine(residual
-                .ToString(" #0.000000000000;-#0.000000000000;0.000000000000"));
+            var residual = solver.Residual;
+            Console.WriteLine(residual.ToResidualString());
 
             Console.WriteLine("обратная матрица a");
             var matrixInv = a.Inv();

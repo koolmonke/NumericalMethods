@@ -36,7 +36,7 @@ namespace MatrixArithmetic.Solvers.Gauss
         }
 
 
-        public Vector Residual() => System.Multiply(SolutionVector).Sub(FreeVector);
+        public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);
 
 
         /// <summary>

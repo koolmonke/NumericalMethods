@@ -36,7 +36,7 @@ namespace MatrixArithmetic.Solvers
             return xk;
         }
 
-        public Vector Residual() =>
+        public Vector Residual =>
             System.Multiply(SolutionVector).Sub(FreeVector);
 
         private readonly double _tau;

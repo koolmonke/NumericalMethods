@@ -22,6 +22,7 @@ namespace MatrixArithmetic.Solvers
 
         public Vector SolutionVector => _solutionVector ??= Solve();
 
+
         public Vector Solve()
         {
             Vector x0 = new Vector(System.N);
@@ -51,7 +52,7 @@ namespace MatrixArithmetic.Solvers
             return x.ToVector();
         }
 
-        public Vector Residual() =>
+        public Vector Residual =>
             System.Multiply(SolutionVector).Sub(FreeVector);
 
         private double LocalEpsilon { get; }

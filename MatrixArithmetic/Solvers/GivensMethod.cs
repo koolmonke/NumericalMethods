@@ -24,6 +24,7 @@ namespace MatrixArithmetic.Solvers
         private Vector? _solutionVector;
         public Vector SolutionVector => _solutionVector ??= Solve();
 
+
         public Vector Solve()
         {
             for (int j = 0; j < _a.N - 1; j++)
@@ -44,7 +45,7 @@ namespace MatrixArithmetic.Solvers
             return SolveUpper();
         }
 
-        public Vector Residual() => System.Multiply(SolutionVector).Sub(FreeVector);
+        public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);
 
         private Vector SolveUpper()
         {

@@ -42,14 +42,14 @@ namespace Lab2
             Console.WriteLine("Решение методом вращений");
             Console.WriteLine(rotationSolver.SolutionVector);
             Console.WriteLine("Вектор невязки для метода вращений");
-            Console.WriteLine(rotationSolver.Residual().ToString(" #0.000000000000;-#0.000000000000;0.000000000000"));
+            Console.WriteLine(rotationSolver.Residual.ToResidualString());
 
             var simpleIterationSolver = new SimpleIterationSolver(taxiCabNorm, a, f);
 
             Console.WriteLine("Решение методом простых итераций");
             Console.WriteLine(simpleIterationSolver.SolutionVector);
             Console.WriteLine("Вектор невязки для метода простых итераций");
-            Console.WriteLine(simpleIterationSolver.Residual().ToString(" #0.000000000000;-#0.000000000000;0.000000000000"));
+            Console.WriteLine(simpleIterationSolver.Residual.ToResidualString());
         }
     }
 }

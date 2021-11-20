@@ -6,8 +6,8 @@ namespace MatrixArithmetic.Solvers.Gauss
     {
         public GaussSolver(Matrix matrix, Vector forVector)
         {
-            this.System = matrix;
-            this.FreeVector = forVector;
+            System = matrix;
+            FreeVector = forVector;
         }
 
         public Vector FreeVector { get; }
@@ -16,7 +16,7 @@ namespace MatrixArithmetic.Solvers.Gauss
 
         private Vector? _solutionVector;
 
-        public Vector SolutionVector => _solutionVector ??= this.Solve();
+        public Vector SolutionVector => _solutionVector ??= Solve();
 
         private Vector Solve()
         {

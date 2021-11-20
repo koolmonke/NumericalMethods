@@ -7,14 +7,14 @@ namespace MatrixArithmetic.Solvers
     {
         private Matrix _a, _q;
         private readonly Vector _f;
-        private readonly List<Matrix> _g = new List<Matrix>();
+        private readonly List<Matrix> _g = new();
 
         public GivensMethod(Matrix a, Vector f)
         {
-            this.System = a;
-            this.FreeVector = f;
-            this._a = a;
-            this._f = f;
+            System = a;
+            FreeVector = f;
+            _a = a;
+            _f = f;
             _q = Matrix.Identity(a.N);
         }
 

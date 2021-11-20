@@ -10,14 +10,14 @@ namespace MatrixArithmetic
 {
     public class Matrix : IEnumerable<double>
     {
-        public int N => this.Repr.GetLength(0);
+        public int N => _repr.GetLength(0);
 
-        public int M => this.Repr.GetLength(1);
+        public int M => _repr.GetLength(1);
 
         public double this[int i, int j]
         {
-            get => Repr[i, j];
-            set => Repr[i, j] = value;
+            get => _repr[i, j];
+            set => _repr[i, j] = value;
         }
 
         public Matrix From(IEnumerable<double> values)
@@ -41,14 +41,14 @@ namespace MatrixArithmetic
 
         public Vector ToVectorByColumn(int column = 0)
         {
-            if (this.M != 1)
+            if (M != 1)
             {
                 throw new VectorDifferentDimException();
             }
 
-            var vector = new Vector(this.N);
+            var vector = new Vector(N);
 
-            for (int i = 0; i < this.N; i++)
+            for (int i = 0; i < N; i++)
             {
                 vector[i] = this[i, column];
             }
@@ -58,14 +58,14 @@ namespace MatrixArithmetic
 
         public Vector ToVectorByRow(int row = 0)
         {
-            if (this.M != 1)
+            if (M != 1)
             {
                 throw new VectorDifferentDimException();
             }
 
-            var vector = new Vector(this.M);
+            var vector = new Vector(M);
 
-            for (int i = 0; i < this.M; i++)
+            for (int i = 0; i < M; i++)
             {
                 vector[i] = this[row, i];
             }
@@ -75,9 +75,9 @@ namespace MatrixArithmetic
 
         public Matrix Multiply(Matrix right)
         {
-            var result = new Matrix(this.N, right.M);
+            var result = new Matrix(N, right.M);
 
-            for (int i = 0; i < this.N; i++)
+            for (int i = 0; i < N; i++)
             {
                 for (int j = 0; j < right.M; j++)
                 {
@@ -95,11 +95,11 @@ namespace MatrixArithmetic
         
         public Vector Multiply(Vector right)
         {
-           var result = new Vector(this.N);
+           var result = new Vector(N);
 
-            for (int i = 0; i < this.N; i++)
+            for (int i = 0; i < N; i++)
             {
-                for (int k = 0; k < this.M; k++)
+                for (int k = 0; k < M; k++)
                 {
                     result[i] += this[i, k] * right[k];
                 }
@@ -112,24 +112,24 @@ namespace MatrixArithmetic
 
         public Matrix Add(Matrix right)
         {
-            if ((this.N, this.M) != (right.N, right.M))
+            if ((N, M) != (right.N, right.M))
             {
                 throw new MatrixDifferentDimException();
             }
 
-            return new Matrix(this.N, this.M).From(this.Zip(right).Select(item => item.First + item.Second));
+            return new Matrix(N, M).From(this.Zip(right).Select(item => item.First + item.Second));
         }
 
         public static Matrix operator +(Matrix left, Matrix right) => left.Add(right);
 
         public Matrix Sub(Matrix right)
         {
-            if ((this.N, this.M) != (right.N, right.M))
+            if ((N, M) != (right.N, right.M))
             {
                 throw new MatrixDifferentDimException();
             }
 
-            return new Matrix(this.N, this.M).From(this.Zip(right).Select(item => item.First - item.Second));
+            return new Matrix(N, M).From(this.Zip(right).Select(item => item.First - item.Second));
         }
 
         public static Matrix operator -(Matrix left, Matrix right) => left.Sub(right);
@@ -152,12 +152,12 @@ namespace MatrixArithmetic
         public Matrix ExtractColumns(int[] cols)
         {
             cols = cols.Distinct().ToArray();
-            Matrix output = new Matrix(this.N, cols.Length);
+            Matrix output = new Matrix(N, cols.Length);
 
-            for (int row = 0; row < this.N; row++)
+            for (int row = 0; row < N; row++)
             {
                 int i = 0;
-                for (int col = 0; col < this.M; col++)
+                for (int col = 0; col < M; col++)
                 {
                     if (cols.Contains(col) == false)
                         continue;
@@ -185,16 +185,16 @@ namespace MatrixArithmetic
 
         public Matrix ConcatHorizontally(Matrix other)
         {
-            int m = this.M + other.M;
-            Matrix output = new Matrix(this.N, m);
-            for (int row = 0; row < this.N; row++)
+            int m = M + other.M;
+            Matrix output = new Matrix(N, m);
+            for (int row = 0; row < N; row++)
             {
-                for (int col = 0; col < this.M + other.M; col++)
+                for (int col = 0; col < M + other.M; col++)
                 {
-                    if (col < this.M)
+                    if (col < M)
                         output[row, col] = this[row, col];
                     else
-                        output[row, col] = other[row, col - this.M];
+                        output[row, col] = other[row, col - M];
                 }
             }
 
@@ -217,7 +217,7 @@ namespace MatrixArithmetic
 
         public double Det()
         {
-            Matrix matrix = this.Copy();
+            Matrix matrix = Copy();
             var n = matrix.N;
             double det = 1;
             for (int i = 0; i < n; i++)
@@ -277,7 +277,7 @@ namespace MatrixArithmetic
             return matrix;
         }
 
-        public Matrix Copy() => new Matrix(Repr);
+        public Matrix Copy() => new Matrix(_repr);
 
         public Matrix Inv()
         {
@@ -288,7 +288,7 @@ namespace MatrixArithmetic
                     [i] = 1
                 };
 
-                return this.Solve(tmpVector);
+                return Solve(tmpVector);
             }).ToArray();
 
             var firstVectorN = vectors[0].N;
@@ -318,7 +318,7 @@ namespace MatrixArithmetic
             }
         }
 
-        public override string ToString() => this.ToString(" #0.0000;-#0.0000; 0.0000");
+        public override string ToString() => ToString(" #0.0000;-#0.0000; 0.0000");
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -349,14 +349,14 @@ namespace MatrixArithmetic
 
         public Matrix(double[,] values)
         {
-            this.Repr = values.CreateCopy();
+            _repr = values.CreateCopy();
         }
 
         public Matrix(int n, int m)
         {
-            Repr = new double[n, m];
+            _repr = new double[n, m];
         }
 
-        private double[,] Repr;
+        private readonly double[,] _repr;
     }
 }

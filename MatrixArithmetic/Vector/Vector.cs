@@ -8,21 +8,21 @@ namespace MatrixArithmetic
 {
     public class Vector : IEnumerable<double>
     {
-        IEnumerator<double> IEnumerable<double>.GetEnumerator() => ((IEnumerable<double>)Repr).GetEnumerator();
+        IEnumerator<double> IEnumerable<double>.GetEnumerator() => ((IEnumerable<double>) _repr).GetEnumerator();
 
-        public IEnumerator GetEnumerator() => Repr.GetEnumerator();
+        public IEnumerator GetEnumerator() => _repr.GetEnumerator();
 
-        public int N => Repr.Length;
+        public int N => _repr.Length;
 
         public double this[Index i]
         {
-            get => Repr[i];
-            set => Repr[i] = value;
+            get => _repr[i];
+            set => _repr[i] = value;
         }
 
-        public Vector this[Range i] => new Vector(Repr[i]);
+        public Vector this[Range i] => new Vector(_repr[i]);
 
-        public Vector Copy() => new Vector(Repr);
+        public Vector Copy() => new Vector(_repr);
 
         public static double operator *(Vector self, Vector other)
         {
@@ -38,14 +38,14 @@ namespace MatrixArithmetic
 
         public override string ToString() => ToString(" #0.0000;-#0.000;0.0000");
 
-        public string ToResidualString() => ToString(" #0.000000000000;-#0.000000000000;0.000000000000");
+        public string ToResidualString() => ToString(" #0.000000000000;-#0.000000000000; 0.000000000000");
 
         public string ToString(string format) => string.Join(Environment.NewLine,
             this.Select(value => value.ToString(format, CultureInfo.InvariantCulture)));
 
         public Vector Sub(Vector vector)
         {
-            if (this.N != vector.N)
+            if (N != vector.N)
             {
                 throw new VectorDifferentDimException();
             }
@@ -57,7 +57,7 @@ namespace MatrixArithmetic
 
         public Vector Add(Vector vector)
         {
-            if (this.N != vector.N)
+            if (N != vector.N)
             {
                 throw new VectorDifferentDimException();
             }
@@ -76,7 +76,7 @@ namespace MatrixArithmetic
 
         public Matrix ToMatrix()
         {
-            var n = this.N;
+            var n = N;
             var result = new Matrix(n, 1);
 
             for (int i = 0; i < n; i++)
@@ -95,14 +95,14 @@ namespace MatrixArithmetic
 
         public Vector(IEnumerable<double> values)
         {
-            Repr = values.Select(value => value).ToArray();
+            _repr = values.Select(value => value).ToArray();
         }
 
         public Vector(int n)
         {
-            Repr = new double[n];
+            _repr = new double[n];
         }
 
-        private double[] Repr;
+        private readonly double[] _repr;
     }
 }

@@ -35,6 +35,7 @@ namespace MatrixArithmetic
         }
 
         public static Vector operator *(Vector self, double other) => self.Select(value => other * value).ToVector();
+        public static Vector operator *(double other, Vector self) => self * other;
 
         public override string ToString() => ToString(" #0.0000;-#0.000;0.0000");
 
@@ -54,6 +55,7 @@ namespace MatrixArithmetic
         }
 
         public static Vector operator -(Vector left, Vector right) => left.Sub(right);
+        public static Vector operator -(Vector vector) => vector.Select(item => -item).ToVector();
 
         public Vector Add(Vector vector)
         {

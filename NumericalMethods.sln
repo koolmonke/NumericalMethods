@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixArithmetic", "MatrixA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab2", "Lab2\Lab2.csproj", "{09FCFE30-B295-4674-8C90-80C7F1CEE9E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab3", "Lab3\Lab3.csproj", "{4521B625-9A45-470B-A1EE-0AB98F768D84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{09FCFE30-B295-4674-8C90-80C7F1CEE9E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09FCFE30-B295-4674-8C90-80C7F1CEE9E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09FCFE30-B295-4674-8C90-80C7F1CEE9E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4521B625-9A45-470B-A1EE-0AB98F768D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4521B625-9A45-470B-A1EE-0AB98F768D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4521B625-9A45-470B-A1EE-0AB98F768D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4521B625-9A45-470B-A1EE-0AB98F768D84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -22,14 +22,20 @@ namespace Lab3
             Func<Vector, double>[,] jacobian =
             {
                 {
-                    vector => 1 - 2 * vector[0] * Sin(vector[2] * vector[2]), vector => -Sin(vector[1]),
+                    vector => 1 - 2 * vector[0] * Sin(vector[2] * vector[2]),
+                    vector => -Sin(vector[1]),
                     vector => -2 * vector[0] * vector[0] * vector[2] * Cos(vector[2] * vector[2])
                 },
                 {
-                    vector => Pow(Sec(vector[0]), 2), vector => -Sin(1 - vector[2]) - 1,
+                    vector => Pow(Sec(vector[0]), 2),
+                    vector => -Sin(1 - vector[2]) - 1,
                     vector => vector[1] * Cos(1 - vector[2])
                 },
-                {vector => Cos(vector[0] + vector[1]), vector => Cos(vector[0] + vector[1]) + 2, _ => 2}
+                {
+                    vector => Cos(vector[0] + vector[1]),
+                    vector => Cos(vector[0] + vector[1]) + 2,
+                    _ => 2
+                }
             };
 
             var guess = new Vector(new double[] {4, 1, 0});

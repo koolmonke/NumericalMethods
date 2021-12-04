@@ -7,7 +7,7 @@ namespace Lab2
 {
     public class JacobiSolver
     {
-        public JacobiSolver(Matrix matrix, Vector vector, double epsilon = Constants.Epsilon)
+        public JacobiSolver(Matrix matrix, Vector vector, double epsilon = Constants.Epsilon6)
         {
             System = matrix;
             FreeVector = vector;

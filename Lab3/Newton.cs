@@ -16,6 +16,7 @@ namespace Lab3
         }
 
         public Func<Vector, double>[,] JacobiMatrix { get; }
+        
         public Func<Vector, double>[] System { get; }
 
         public INorma Norma { get; }
@@ -23,8 +24,9 @@ namespace Lab3
 
         public int CounterIteration { get; private set; }
 
-        private Vector? _solutionVector;
         public Vector SolutionVector => _solutionVector ??= Solve();
+        
+        private Vector? _solutionVector;
 
         private Vector Solve()
         {

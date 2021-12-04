@@ -22,8 +22,9 @@ namespace Lab3
 
         public int CounterIteration { get; private set; }
 
-        private Vector? _solutionVector;
         public Vector SolutionVector => _solutionVector ??= Solve();
+        
+        private Vector? _solutionVector;
 
         private Vector Solve()
         {

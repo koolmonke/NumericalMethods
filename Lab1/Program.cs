@@ -30,22 +30,20 @@ namespace Lab1
             Console.WriteLine(f);
 
             Console.WriteLine("её детерминант");
-            var det = a.Det();
-            Console.WriteLine(det.ToString(CultureInfo.InvariantCulture));
+            Console.WriteLine(a.Det().ToString(CultureInfo.InvariantCulture));
 
             Console.WriteLine("решение ax=f");
             var solver = new GaussSolver(a, f);
             Console.WriteLine(solver.SolutionVector);
 
             Console.WriteLine("Вектор невязки");
-            var residual = solver.Residual;
-            Console.WriteLine(residual.ToResidualString());
+            Console.WriteLine(solver.Residual.ToResidualString());
 
             Console.WriteLine("обратная матрица a");
             var matrixInv = a.Inv();
             Console.WriteLine(matrixInv);
 
-            Console.WriteLine("матрица а умноженный на её обратную матрицу");
+            Console.WriteLine("Обратная матрица а умноженная на матрицу а");
             var multiplyResult = matrixInv.Multiply(a);
             Console.WriteLine(multiplyResult);
         }

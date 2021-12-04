@@ -6,10 +6,6 @@ namespace Lab2
 {
     public class GivensMethod
     {
-        private Matrix _a, _q;
-        private readonly Vector _f;
-        private readonly List<Matrix> _g = new();
-
         public GivensMethod(Matrix a, Vector f)
         {
             System = a;
@@ -20,11 +16,11 @@ namespace Lab2
         }
 
         public Matrix System { get; }
+        
         public Vector FreeVector { get; }
 
         private Vector? _solutionVector;
         public Vector SolutionVector => _solutionVector ??= Solve();
-
 
         private Vector Solve()
         {
@@ -48,6 +44,13 @@ namespace Lab2
 
         public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);
 
+        private Matrix _a, _q;
+        
+        private readonly Vector _f;
+        
+        private readonly List<Matrix> _g = new();
+
+        
         private Vector SolveUpper()
         {
             _q = _q.Transpose();

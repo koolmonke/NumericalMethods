@@ -14,15 +14,15 @@ namespace Lab2
             LocalEpsilon = epsilon;
         }
 
-
         public Matrix System { get; }
 
         public Vector FreeVector { get; }
 
-        private Vector? _solutionVector;
 
         public Vector SolutionVector => _solutionVector ??= Solve();
 
+        public Vector Residual =>
+            System.Multiply(SolutionVector).Sub(FreeVector);
 
         private Vector Solve()
         {
@@ -53,8 +53,7 @@ namespace Lab2
             return x.ToVector();
         }
 
-        public Vector Residual =>
-            System.Multiply(SolutionVector).Sub(FreeVector);
+        private Vector? _solutionVector;
 
         private double LocalEpsilon { get; }
 

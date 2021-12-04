@@ -1,7 +1,6 @@
 ﻿using System;
 using MatrixArithmetic;
 using MatrixArithmetic.Norms;
-using MatrixArithmetic.Solvers;
 
 namespace Lab2
 {

@@ -2,7 +2,7 @@
 {
     public interface INorma
     {
-        public double VectorNorm(Vector vector);
-        public double MatrixNorm(Matrix matrix);
+        double VectorNorm(Vector vector);
+        double MatrixNorm(Matrix matrix);
     }
 }

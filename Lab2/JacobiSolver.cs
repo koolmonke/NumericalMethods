@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 
-namespace MatrixArithmetic.Solvers
+namespace Lab2
 {
-    public class JacobiSolver : ISolver
+    public class JacobiSolver
     {
         public JacobiSolver(Matrix matrix, Vector vector, double epsilon = Constants.Epsilon)
         {

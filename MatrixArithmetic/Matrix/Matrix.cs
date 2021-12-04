@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using MatrixArithmetic.Solvers.Gauss;
+using MatrixArithmetic.Gauss;
 
 namespace MatrixArithmetic
 {

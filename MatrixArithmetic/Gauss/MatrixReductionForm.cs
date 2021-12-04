@@ -1,4 +1,4 @@
-﻿namespace MatrixArithmetic.Solvers.Gauss
+﻿namespace MatrixArithmetic.Gauss
 {
     public enum MatrixReductionForm
     {

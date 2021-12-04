@@ -1,10 +1,11 @@
 ﻿using System.Linq;
+using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 using static System.Math;
 
-namespace MatrixArithmetic.Solvers
+namespace Lab2
 {
-    public class SimpleIterationSolver : ISolver
+    public class SimpleIterationSolver
     {
         public SimpleIterationSolver(INorma norma, Matrix matrix, Vector vector)
         {
@@ -31,7 +32,7 @@ namespace MatrixArithmetic.Solvers
             {
                 xkp = xk;
                 xk = FreeVector.Sub(System.Multiply(xk)).Multiply(_tau).Add(xk);
-            } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-6);
+            } while (Norma.VectorNorm(xkp.Sub(xk)) > Constants.Epsilon6);
 
             return xk;
         }

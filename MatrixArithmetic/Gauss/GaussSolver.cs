@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MatrixArithmetic.Solvers.Gauss
+namespace MatrixArithmetic.Gauss
 {
-    public class GaussSolver : ISolver
+    public class GaussSolver
     {
         public GaussSolver(Matrix matrix, Vector forVector)
         {

@@ -1,7 +1,6 @@
 ﻿using System;
 using MatrixArithmetic;
 using MatrixArithmetic.Norms;
-using MatrixArithmetic.Solvers.NonLinear;
 using static System.Math;
 
 namespace Lab3
@@ -12,13 +11,15 @@ namespace Lab3
 
         private static void Main()
         {
+            // Изначальный вектор-функция
             Func<Vector, double>[] originalVector =
             {
                 vector => vector[0] + Cos(vector[1]) - vector[0] * vector[0] * Sin(vector[2] * vector[2]) - 0.2,
                 vector => Tan(vector[0]) - vector[1] * Sin(1 - vector[2]) - vector[1] + 0.1,
                 vector => Sin(vector[0] + vector[1]) + 2 * vector[1] + 2 * vector[2] - 0.1,
-            };
+            }; 
 
+            // Якобиан для вектор-функции
             Func<Vector, double>[,] jacobian =
             {
                 {

@@ -1,5 +1,5 @@
 ﻿#nullable disable
-namespace MatrixArithmetic.Solvers.Gauss
+namespace MatrixArithmetic.Gauss
 {
     public class MatrixEliminationResult
     {

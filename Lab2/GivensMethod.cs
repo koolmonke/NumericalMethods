@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using MatrixArithmetic;
 
-namespace MatrixArithmetic.Solvers
+namespace Lab2
 {
-    public class GivensMethod : ISolver
+    public class GivensMethod
     {
         private Matrix _a, _q;
         private readonly Vector _f;

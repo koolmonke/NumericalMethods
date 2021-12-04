@@ -35,8 +35,7 @@ namespace Lab3
                 xkp = xk;
                 var jac = JacobiMatrix.Apply(xk);
                 var f = System.Apply(xk);
-                var transpose = jac.Transpose() * f;
-                xk -= NextTau(jac, f) * transpose;
+                xk -= NextTau(jac, f) * (jac.Transpose() * f);
                 CounterIteration++;
             } while (Norma.VectorNorm(xk - xkp) > Constants.Epsilon3);
 

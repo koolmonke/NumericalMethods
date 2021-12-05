@@ -14,7 +14,7 @@ namespace Lab3
             // Изначальный вектор-функция
             Func<Vector, double>[] originalVector =
             {
-                vector => vector[0] + Cos(vector[1]) - vector[0] * vector[0] * Sin(vector[2] * vector[2]) - 0.2,
+                vector => vector[0] + Cos(vector[1]) - Pow(vector[0], 2) * Sin(Pow(vector[2], 2)) - 0.2,
                 vector => Tan(vector[0]) - vector[1] * Sin(1 - vector[2]) - vector[1] + 0.1,
                 vector => Sin(vector[0] + vector[1]) + 2 * vector[1] + 2 * vector[2] - 0.1,
             }; 
@@ -23,9 +23,9 @@ namespace Lab3
             Func<Vector, double>[,] jacobian =
             {
                 {
-                    vector => 1 - 2 * vector[0] * Sin(vector[2] * vector[2]),
+                    vector => 1 - 2 * vector[0] * Sin(Pow(vector[2], 2)),
                     vector => -Sin(vector[1]),
-                    vector => -2 * vector[0] * vector[0] * vector[2] * Cos(vector[2] * vector[2])
+                    vector => -2 * Pow(vector[0], 2) * vector[2] * Cos(Pow(vector[2], 2))
                 },
                 {
                     vector => Pow(Sec(vector[0]), 2),

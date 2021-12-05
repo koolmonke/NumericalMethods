@@ -19,8 +19,11 @@ namespace Lab2
         
         public Vector FreeVector { get; }
 
-        private Vector? _solutionVector;
         public Vector SolutionVector => _solutionVector ??= Solve();
+
+        public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);
+        
+        private Vector? _solutionVector;
 
         private Vector Solve()
         {
@@ -41,8 +44,6 @@ namespace Lab2
 
             return SolveUpper();
         }
-
-        public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);
 
         private Matrix _a, _q;
         

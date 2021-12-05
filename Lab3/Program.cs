@@ -41,7 +41,8 @@ namespace Lab3
 
             var guess = new Vector(new double[] {4, 1, 0});
 
-            var gradient = new Gradient(jacobian, originalVector, new TaxiCabNorm(), guess);
+            var taxiCabNorm = new TaxiCabNorm();
+            var gradient = new Gradient(jacobian, originalVector, taxiCabNorm, guess);
 
             Console.WriteLine("Вектор решений методом градиента");
             Console.WriteLine(gradient.SolutionVector);
@@ -49,7 +50,7 @@ namespace Lab3
             Console.WriteLine(originalVector.Apply(gradient.SolutionVector).ToResidualString());
             Console.WriteLine($"Кол-во итераций для метода градиента {gradient.CounterIteration}");
 
-            var newton = new Newton(jacobian, originalVector, new TaxiCabNorm(), gradient.SolutionVector);
+            var newton = new Newton(jacobian, originalVector, taxiCabNorm, gradient.SolutionVector);
 
             Console.WriteLine("Вектор решений методом Ньютона");
             Console.WriteLine(newton.SolutionVector.ToString(" #0.0000000;-#0.0000000;0.0000000"));

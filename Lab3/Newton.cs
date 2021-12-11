@@ -1,6 +1,6 @@
 ﻿using System;
+using Lab1;
 using MatrixArithmetic;
-using MatrixArithmetic.Gauss;
 using MatrixArithmetic.Norms;
 
 namespace Lab3
@@ -16,7 +16,7 @@ namespace Lab3
         }
 
         public Func<Vector, double>[,] JacobiMatrix { get; }
-        
+
         public Func<Vector, double>[] System { get; }
 
         public INorma Norma { get; }
@@ -25,7 +25,7 @@ namespace Lab3
         public int CounterIteration { get; private set; }
 
         public Vector SolutionVector => _solutionVector ??= Solve();
-        
+
         private Vector? _solutionVector;
 
         private Vector Solve()

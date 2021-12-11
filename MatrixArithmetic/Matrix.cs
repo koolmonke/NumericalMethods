@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using MatrixArithmetic.Gauss;
 
 namespace MatrixArithmetic
 {
@@ -39,40 +38,6 @@ namespace MatrixArithmetic
             return this;
         }
 
-        public Vector ToVectorByColumn(int column = 0)
-        {
-            if (M != 1)
-            {
-                throw new VectorDifferentDimException();
-            }
-
-            var vector = new Vector(N);
-
-            for (int i = 0; i < N; i++)
-            {
-                vector[i] = this[i, column];
-            }
-
-            return vector;
-        }
-
-        public Vector ToVectorByRow(int row = 0)
-        {
-            if (M != 1)
-            {
-                throw new VectorDifferentDimException();
-            }
-
-            var vector = new Vector(M);
-
-            for (int i = 0; i < M; i++)
-            {
-                vector[i] = this[row, i];
-            }
-
-            return vector;
-        }
-
         public Matrix Multiply(Matrix right)
         {
             var result = new Matrix(N, right.M);
@@ -90,12 +55,12 @@ namespace MatrixArithmetic
 
             return result;
         }
-        
+
         public static Matrix operator *(Matrix left, Matrix right) => left.Multiply(right);
-        
+
         public Vector Multiply(Vector right)
         {
-           var result = new Vector(N);
+            var result = new Vector(N);
 
             for (int i = 0; i < N; i++)
             {
@@ -107,7 +72,7 @@ namespace MatrixArithmetic
 
             return result;
         }
-        
+
         public static Vector operator *(Matrix left, Vector right) => left.Multiply(right);
 
         public Matrix Add(Matrix right)
@@ -134,8 +99,6 @@ namespace MatrixArithmetic
 
         public static Matrix operator -(Matrix left, Matrix right) => left.Sub(right);
 
-
-        public Vector Solve(Vector fVector) => new GaussSolver(this, fVector).SolutionVector;
 
         public Vector GetColumn(int index)
         {
@@ -215,56 +178,6 @@ namespace MatrixArithmetic
             return result;
         }
 
-        public double Det()
-        {
-            Matrix matrix = Copy();
-            var n = matrix.N;
-            double det = 1;
-            for (int i = 0; i < n; i++)
-            {
-                int k = i;
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (Math.Abs(matrix[j, i]) > Math.Abs(matrix[k, i]))
-                    {
-                        k = j;
-                    }
-                }
-
-                if (Math.Abs(matrix[k, i]) < Constants.Epsilon)
-                {
-                    return 0;
-                }
-
-                if (i != k)
-                {
-                    det = -det;
-                }
-
-                matrix.SwitchRows(i, k);
-
-                det *= matrix[i, i];
-                for (int j = i + 1; j < n; j++)
-                {
-                    matrix[i, j] /= matrix[i, i];
-                }
-
-                for (int j = 0; j < n; j++)
-                {
-                    if (j != i && Math.Abs(matrix[j, i]) > Constants.Epsilon)
-                    {
-                        for (k = i + 1; k < n; k++)
-                        {
-                            matrix[j, k] -= matrix[i, k] * matrix[j, i];
-                        }
-                    }
-                }
-            }
-
-            return det;
-        }
-
-
         public static Matrix Identity(int n)
         {
             var matrix = new Matrix(n, n);
@@ -278,33 +191,6 @@ namespace MatrixArithmetic
         }
 
         public Matrix Copy() => new Matrix(_repr);
-
-        public Matrix Inv()
-        {
-            var vectors = ParallelEnumerable.Range(0, N).AsOrdered().Select(i =>
-            {
-                var tmpVector = new Vector(N)
-                {
-                    [i] = 1
-                };
-
-                return Solve(tmpVector);
-            }).ToArray();
-
-            var firstVectorN = vectors[0].N;
-
-            var result = new Matrix(firstVectorN, vectors.Length);
-
-            for (int i = 0; i < vectors.Length; i++)
-            {
-                for (int j = 0; j < firstVectorN; j++)
-                {
-                    result[j, i] = vectors[i][j];
-                }
-            }
-
-            return result;
-        }
 
 
         public IEnumerator<double> GetEnumerator()
@@ -349,7 +235,21 @@ namespace MatrixArithmetic
 
         public Matrix(double[,] values)
         {
-            _repr = values.CreateCopy();
+            var rowCount = values.GetLength(0);
+            var colCount = values.GetLength(1);
+
+            var output = new double[rowCount, colCount];
+
+
+            for (int row = 0; row < rowCount; row++)
+            {
+                for (int col = 0; col < colCount; col++)
+                {
+                    output[row, col] = values[row, col];
+                }
+            }
+
+            _repr = output;
         }
 
         public Matrix(int n, int m)
@@ -359,7 +259,7 @@ namespace MatrixArithmetic
 
         private readonly double[,] _repr;
     }
-    
+
     public class MatrixDifferentDimException : Exception
     {
         public MatrixDifferentDimException() : base("У этих матриц разная размерность")

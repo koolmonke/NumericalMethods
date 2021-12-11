@@ -7,11 +7,10 @@ namespace Lab2
 {
     public class JacobiSolver
     {
-        public JacobiSolver(Matrix matrix, Vector vector, double epsilon = Constants.Epsilon6)
+        public JacobiSolver(Matrix matrix, Vector vector)
         {
             System = matrix;
             FreeVector = vector;
-            LocalEpsilon = epsilon;
         }
 
         public Matrix System { get; }
@@ -48,14 +47,12 @@ namespace Lab2
 
                 error = CalcError(x, x0);
                 x0 = x.Copy();
-            } while (error >= LocalEpsilon);
+            } while (error >= Constants.Epsilon6);
 
             return x.ToVector();
         }
 
         private Vector? _solutionVector;
-
-        private double LocalEpsilon { get; }
 
         private static double CalcError(IEnumerable<double> a, IEnumerable<double> b)
         {

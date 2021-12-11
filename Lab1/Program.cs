@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using MatrixArithmetic;
-using MatrixArithmetic.Gauss;
 
 namespace Lab1
 {
@@ -12,10 +11,10 @@ namespace Lab1
             Console.WriteLine("Матрица A");
             var a = new Matrix(new[,]
             {
-                { -2, 3.01, .12, -.11 },
-                { 2.92, -.17, .11, .22 },
-                { .66, .52, 3.17, 2.11 },
-                { 3.01, .42, -.27, .15 }
+                {-2, 3.01, .12, -.11},
+                {2.92, -.17, .11, .22},
+                {.66, .52, 3.17, 2.11},
+                {3.01, .42, -.27, .15}
             });
             Console.WriteLine(a);
 
@@ -30,7 +29,7 @@ namespace Lab1
             Console.WriteLine(f);
 
             Console.WriteLine("её детерминант");
-            Console.WriteLine(a.Det().ToString(CultureInfo.InvariantCulture));
+            Console.WriteLine(GaussSolver.Det(a).ToString(CultureInfo.InvariantCulture));
 
             Console.WriteLine("решение ax=f");
             var solver = new GaussSolver(a, f);
@@ -40,7 +39,7 @@ namespace Lab1
             Console.WriteLine(solver.Residual.ToResidualString());
 
             Console.WriteLine("обратная матрица a");
-            var matrixInv = a.Inv();
+            var matrixInv = GaussSolver.Inv(a);
             Console.WriteLine(matrixInv);
 
             Console.WriteLine("Обратная матрица а умноженная на матрицу а");

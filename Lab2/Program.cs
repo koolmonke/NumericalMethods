@@ -1,4 +1,5 @@
 ﻿using System;
+using Lab1;
 using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 
@@ -29,7 +30,7 @@ namespace Lab2
 
             var taxiCabNorm = new TaxiCabNorm();
             var matrixANorm = taxiCabNorm.MatrixNorm(a);
-            var matrixAInvNorm = taxiCabNorm.MatrixNorm(a.Inv());
+            var matrixAInvNorm = taxiCabNorm.MatrixNorm(GaussSolver.Inv(a));
 
             Console.WriteLine($"Число обусловленности {matrixANorm * matrixAInvNorm}");
 

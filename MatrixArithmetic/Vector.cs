@@ -20,8 +20,6 @@ namespace MatrixArithmetic
             set => _repr[i] = value;
         }
 
-        public Vector this[Range i] => new Vector(_repr[i]);
-
         public Vector Copy() => new Vector(_repr);
 
         public static double operator *(Vector self, Vector other)

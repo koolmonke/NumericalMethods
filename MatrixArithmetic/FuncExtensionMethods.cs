@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MatrixArithmetic
 {
-    public static class CommonExtensionMethods
+    public static class FuncExtensionMethods
     {
         public static Matrix Apply(this Func<Vector, double>[,] matrixFunc, Vector vector)
         {

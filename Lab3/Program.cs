@@ -53,7 +53,7 @@ namespace Lab3
             var newton = new Newton(jacobian, originalVector, taxiCabNorm, gradient.SolutionVector);
 
             Console.WriteLine("Вектор решений методом Ньютона");
-            Console.WriteLine(newton.SolutionVector.ToString(" #0.0000000;-#0.0000000;0.0000000"));
+            Console.WriteLine(newton.SolutionVector.ToString(" #0.0000000;-#0.0000000;0.0000000", Environment.NewLine));
             Console.WriteLine("Вектор невязки для метода Ньютона");
             Console.WriteLine(originalVector.Apply(newton.SolutionVector).ToResidualString());
             Console.WriteLine($"Кол-во итераций для метода Ньютона {newton.CounterIteration}");

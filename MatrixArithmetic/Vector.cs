@@ -35,11 +35,11 @@ namespace MatrixArithmetic
         public static Vector operator *(Vector self, double other) => self.Select(value => other * value).ToVector();
         public static Vector operator *(double other, Vector self) => self * other;
 
-        public override string ToString() => ToString(" #0.0000;-#0.000;0.0000");
+        public override string ToString() => ToString(" #0.0000;-#0.000;0.0000", Environment.NewLine);
 
-        public string ToResidualString() => ToString(" #0.000000000000;-#0.000000000000; 0.000000000000");
+        public string ToResidualString() => ToString(" #0.000000000000;-#0.000000000000; 0.000000000000", Environment.NewLine);
 
-        public string ToString(string format) => string.Join(Environment.NewLine,
+        public string ToString(string format, string separator) => string.Join(separator,
             this.Select(value => value.ToString(format, CultureInfo.InvariantCulture)));
 
         public Vector Sub(Vector vector)

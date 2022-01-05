@@ -37,7 +37,10 @@ namespace MatrixArithmetic
 
         public override string ToString() => ToString(" #0.0000;-#0.000;0.0000", Environment.NewLine);
 
-        public string ToResidualString() => ToString(" #0.000000000000;-#0.000000000000; 0.000000000000", Environment.NewLine);
+        public string ToResidualString() =>
+            ToString(" #0.000000000000;-#0.000000000000; 0.000000000000", Environment.NewLine);
+
+        public string ToString(string format) => ToString(format, Environment.NewLine);
 
         public string ToString(string format, string separator) => string.Join(separator,
             this.Select(value => value.ToString(format, CultureInfo.InvariantCulture)));
@@ -105,12 +108,12 @@ namespace MatrixArithmetic
 
         private readonly double[] _repr;
     }
-    
+
     public static class VectorExt
     {
         public static Vector ToVector(this IEnumerable<double> enumerable) => new Vector(enumerable.ToArray());
     }
-    
+
     public class VectorDifferentDimException : Exception
     {
     }

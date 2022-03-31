@@ -13,16 +13,11 @@ let rec Process degree =
         2. * Polynom([ 0.; 1. ]) * (Process(n - 1))
         - Process(n - 2)
 
-type ChebyshevT(degree: uint) =
-
-    member _.Roots() =
-        seq { for item in 0u .. (degree - 1u) -> cos (Math.PI * (2. * float item + 1.) / (2. * float degree)) }
-        |> Seq.cache
-
 let integrate (left, right, nodes) func =
-    let roots = ChebyshevT(nodes).Roots()
+    let roots = Chebyshev.Roots nodes
     let len = (right - left) / 2.
     let mid = (right + left) / 2.
+
     let sum =
         seq { for r in roots -> sqrt (1. - r ** 2.) * func (len * r + mid) }
         |> Seq.sum
@@ -30,8 +25,7 @@ let integrate (left, right, nodes) func =
     len * Math.PI * sum / float nodes
 
 
-let rec integral (l, r, nodes) func (split: int option) =
-    let split = if split.IsNone then 2 else split.Value
+let rec integral (l, r, nodes) func split =
     let whole = integrate (l, r, nodes) func
     let step = (r - l) / float split
 
@@ -46,4 +40,4 @@ let rec integral (l, r, nodes) func (split: int option) =
     if abs (whole - windowedSum) < 1e-5 then
         min whole windowedSum
     else
-        integral (l, r, 600u) func (Some(2 * split))
+        integral (l, r, 600u) func (2 * split)

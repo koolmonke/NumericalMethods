@@ -6,12 +6,12 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Compile Include="Chebyshev.fs" />
         <Compile Include="Integrate.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\functions\Functions\Functions.fsproj" />
       <ProjectReference Include="..\MatrixArithmetic\MatrixArithmetic.csproj" />
     </ItemGroup>
 

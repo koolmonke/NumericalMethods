@@ -23,8 +23,7 @@ public class Polynom : IEnumerable<double>
         new(left.ZipLongest(right, (l, r) => l + r));
 
     public static Polynom operator *(double left, Polynom right) => new Polynom(right.Select(item => left * item));
-
-
+    
     public static Polynom operator -(Polynom left, Polynom right) => left + (-right);
 
     public static Polynom operator -(Polynom poly) => new(poly.Select(item => -item));

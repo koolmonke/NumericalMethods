@@ -87,8 +87,8 @@ module NoSymbols =
 
     let inter_b i x =
         f x * phi i x
-        - fn_k (x) * d_phi0 (x) * d_phi i x
-        - fn_q x * phi0 (x) * phi i x
+        - fn_k x * d_phi0 x * d_phi i x
+        - fn_q x * phi0 x * phi i x
 
 
 let b q =
@@ -117,17 +117,9 @@ let gaussSolution = GaussSolver(a, bVector).SolutionVector
 printfn $"{gaussSolution}"
 
 let solution =
-    (seq {
-        for i in 1 .. (int n) ->
-            phi (float i) * Val gaussSolution.[int (i - 1)]
-            + phi 0
-     })
-    |> Seq.toList
-
-let sol =
-    solution.[0] + solution.[1] + solution.[2]
-
-printfn "%A" (solution |> Seq.map show)
+    (seq { for i in 1 .. (int n) -> phi (float i) * Val gaussSolution.[int (i - 1)] })
+    |> Seq.reduce (+)
+    |> (+) (phi 0)
 
 for i in xLeft .. xLenght / 6.0 .. xRight do
-    printfn "%A %A" i (evalf sol "x" i)
+    printfn "%A %A" i (evalf solution "x" i)

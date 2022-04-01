@@ -92,7 +92,11 @@ module NoSymbols =
 
 
 let b q =
-    integral (xLeft, xRight, n) (NoSymbols.inter_b q)
+    integral
+        (xLeft, xRight, n)
+        (evalf
+            (f * phi q - p * phi 0 * phi q - k * diff (phi 0) "x" * diff (phi q) "x")
+            "x")
 
 
 let a =

@@ -48,8 +48,9 @@ let phi =
             ((Val xCoeff) * x + Val freeCoeff) / Val xLenght
         else
             (Val xRight - x) * (x - Val xLeft) ** Val _k
+
     memoize phi1
-        
+
 
 
 let lagrange i j =
@@ -78,10 +79,16 @@ module NoSymbols =
     let d_phi k x =
         cos (k * Math.PI * (x - xLeft) / (xRight - xLeft))
         * (k * Math.PI / (xRight - xLeft))
-    let fn_k x =  x ** 0.5 + (float variant / 3.)
-    let fn_q x = (x + 5.) / (x ** 2. + 0.9 * float variant)
-    
-    let inter_b i x  = f x * phi i x - fn_k(x) * d_phi0(x) * d_phi i x - fn_q x * phi0(x) * phi i x
+
+    let fn_k x = x ** 0.5 + (float variant / 3.)
+
+    let fn_q x =
+        (x + 5.) / (x ** 2. + 0.9 * float variant)
+
+    let inter_b i x =
+        f x * phi i x
+        - fn_k (x) * d_phi0 (x) * d_phi i x
+        - fn_q x * phi0 (x) * phi i x
 
 
 let b q =
@@ -101,7 +108,7 @@ let a =
 printfn $"{a.[0, 0]}"
 
 let bVector =
-    Vector(seq {  1.0 .. (float n)} |> Seq.map b)
+    Vector(seq { 1.0 .. (float n) } |> Seq.map b)
 
 
 let gaussSolution = GaussSolver(a, bVector).SolutionVector
@@ -109,11 +116,18 @@ let gaussSolution = GaussSolver(a, bVector).SolutionVector
 
 printfn $"{gaussSolution}"
 
-let solution = (seq {for i in 1..(int n) -> phi (float i) * Val gaussSolution.[int (i - 1)] + phi 0}) |> Seq.toList
+let solution =
+    (seq {
+        for i in 1 .. (int n) ->
+            phi (float i) * Val gaussSolution.[int (i - 1)]
+            + phi 0
+     })
+    |> Seq.toList
 
-let sol = solution.[0] + solution.[1] + solution.[2]
+let sol =
+    solution.[0] + solution.[1] + solution.[2]
 
-printfn "%A" (solution|> Seq.map show)
+printfn "%A" (solution |> Seq.map show)
 
-for i in xLeft..xLenght/6.0..xRight do
+for i in xLeft .. xLenght / 6.0 .. xRight do
     printfn "%A %A" i (evalf sol "x" i)

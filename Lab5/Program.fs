@@ -109,7 +109,7 @@ let a =
             }
         )
 
-printfn $"{a.[0, 0]}"
+printfn $"{a}"
 
 let bVector =
     Vector(seq { 1.0 .. (float n) } |> Seq.map b)

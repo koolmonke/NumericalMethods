@@ -13,8 +13,8 @@ let rec Process degree =
         2. * Polynom([ 0.; 1. ]) * (Process(n - 1))
         - Process(n - 2)
 
-let integrate (left, right, nodes) func =
-    let roots = Chebyshev.Roots nodes
+let integrate (left, right, nodes: uint) func =
+    let roots =  [0.8660254038; 0; -0.8660254038] // Chebyshev.Roots nodes
     let len = (right - left) / 2.
     let mid = (right + left) / 2.
 

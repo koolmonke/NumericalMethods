@@ -12,6 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\functions\Functions\Functions.fsproj" />
+      <ProjectReference Include="..\Lab1\Lab1.csproj" />
       <ProjectReference Include="..\MatrixArithmetic\MatrixArithmetic.csproj" />
     </ItemGroup>
 

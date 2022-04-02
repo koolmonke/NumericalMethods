@@ -36,18 +36,3 @@ let rec integral (l, r, nodes) func =
     else
         integral (l, mid, nodes) func
         + integral (mid, r, nodes) func
-
-//    let step = (r - l) / float split
-//
-//    let windowedSum =
-//        seq { 0 .. split }
-//        |> Seq.windowed 2
-//        |> Seq.map (fun item -> integrate (l + float item.[0] * step, l + float item.[1] * step, nodes) func)
-//        |> Seq.sum
-//
-//
-//
-//    if abs (whole - windowedSum) < 1e-5 then
-//        min whole windowedSum
-//    else
-//        integral (l, r, 600u) func (2 * split)

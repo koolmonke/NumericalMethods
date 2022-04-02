@@ -78,7 +78,7 @@ let solution =
     (seq { for i in 1 .. (int n) -> phi (float i) * Val gaussSolution.[int (i - 1)] })
     |> Seq.reduce (+)
     |> (+) (phi 0)
-    |> ( * ) (Val -1.)
+    |> (*) (Val -1.)
 
 printfn "%A %A" xLeft muLeft
 

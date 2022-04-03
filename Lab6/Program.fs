@@ -64,6 +64,7 @@ let t =
 let matrixY = calcY x t
     
 for i = M downto 0 do
+    printf "t = %8.4f |" (float i / 10.)
     for j in 0..M do
         printf "%8.4f" matrixY[j, i]
     printfn ""

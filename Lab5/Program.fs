@@ -84,7 +84,7 @@ printfn $"{show solution}"
 
 printfn "%A %A" xLeft muLeft
 
-for i in xLeft .. xLenght / 6.0 .. xRight do
+for i in xLeft .. xLenght / 4.0 .. xRight do
     printfn "%A %A" i (evalf solution "x" i)
 
 printfn "%A %A" xRight muRight

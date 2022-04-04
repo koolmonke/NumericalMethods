@@ -80,6 +80,8 @@ let solution =
     |> (+) (phi 0)
     |> (*) (Val -1.)
 
+printfn $"{show solution}"
+
 printfn "%A %A" xLeft muLeft
 
 for i in xLeft .. xLenght / 6.0 .. xRight do

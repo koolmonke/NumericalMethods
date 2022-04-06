@@ -1,4 +1,4 @@
-﻿module Lab5.Integrate
+﻿module C2Lab1.Integrate
 
 open System
 open MatrixArithmetic

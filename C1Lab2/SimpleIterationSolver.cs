@@ -3,7 +3,7 @@ using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 using static System.Math;
 
-namespace Lab2
+namespace C1Lab2
 {
     public class SimpleIterationSolver
     {

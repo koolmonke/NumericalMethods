@@ -1,4 +1,4 @@
-open Lab1
+open C1Lab1
 open Lab5.Integrate
 
 open Functions.Expressions

@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\functions\Functions\Functions.fsproj" />
-      <ProjectReference Include="..\Lab1\Lab1.csproj" />
+      <ProjectReference Include="..\C1Lab1\C1Lab1.csproj" />
       <ProjectReference Include="..\MatrixArithmetic\MatrixArithmetic.csproj" />
     </ItemGroup>
 

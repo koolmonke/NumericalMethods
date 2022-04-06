@@ -1,12 +1,13 @@
 ﻿using System;
+using C1Lab1;
 using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 
-namespace Lab3
+namespace C1Lab3
 {
-    public class Gradient
+    public class Newton
     {
-        public Gradient(Func<Vector, double>[,] jacobiMatrix, Func<Vector, double>[] system, INorma norma, Vector guess)
+        public Newton(Func<Vector, double>[,] jacobiMatrix, Func<Vector, double>[] system, INorma norma, Vector guess)
         {
             JacobiMatrix = jacobiMatrix;
             System = system;
@@ -15,6 +16,7 @@ namespace Lab3
         }
 
         public Func<Vector, double>[,] JacobiMatrix { get; }
+
         public Func<Vector, double>[] System { get; }
 
         public INorma Norma { get; }
@@ -23,7 +25,7 @@ namespace Lab3
         public int CounterIteration { get; private set; }
 
         public Vector SolutionVector => _solutionVector ??= Solve();
-        
+
         private Vector? _solutionVector;
 
         private Vector Solve()
@@ -36,17 +38,12 @@ namespace Lab3
                 xkp = xk;
                 var jac = JacobiMatrix.Apply(xk);
                 var f = System.Apply(xk);
-                xk -= NextTau(jac, f) * (jac.Transpose() * f);
+                var gauss = new GaussSolver(jac, -f).SolutionVector;
+                xk += gauss;
                 CounterIteration++;
-            } while (Norma.VectorNorm(xk - xkp) > Constants.Epsilon3);
+            } while (Norma.VectorNorm(xk - xkp) > Constants.Epsilon6);
 
             return xk;
-        }
-
-        private static double NextTau(Matrix jac, Vector f)
-        {
-            var temp = jac * jac.Transpose() * f;
-            return temp * f / (temp * temp);
         }
     }
 }

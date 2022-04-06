@@ -3,7 +3,7 @@ using System.Linq;
 using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 
-namespace Lab2
+namespace C1Lab2
 {
     public class JacobiSolver
     {

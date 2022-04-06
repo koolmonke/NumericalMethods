@@ -2,7 +2,7 @@
 using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 
-namespace Lab3
+namespace C1Lab3
 {
     public class SimpleIterationSolver
     {

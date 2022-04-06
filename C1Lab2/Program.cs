@@ -1,9 +1,9 @@
 ﻿using System;
-using Lab1;
+using C1Lab1;
 using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 
-namespace Lab2
+namespace C1Lab2
 {
     internal static class Program
     {

@@ -14,8 +14,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "C2Lab1", "C2Lab1\C2Lab1.fsp
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Functions", "functions\Functions\Functions.fsproj", "{53B78689-96C2-4D3A-ADED-149FB3B97E56}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "C2Lab3", "C2Lab3\C2Lab3.fsproj", "{56CC9A3C-B65D-44EC-A65C-7661B1CA3FB0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,9 +48,5 @@ Global
 		{53B78689-96C2-4D3A-ADED-149FB3B97E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53B78689-96C2-4D3A-ADED-149FB3B97E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53B78689-96C2-4D3A-ADED-149FB3B97E56}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56CC9A3C-B65D-44EC-A65C-7661B1CA3FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56CC9A3C-B65D-44EC-A65C-7661B1CA3FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56CC9A3C-B65D-44EC-A65C-7661B1CA3FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56CC9A3C-B65D-44EC-A65C-7661B1CA3FB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

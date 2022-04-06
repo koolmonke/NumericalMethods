@@ -26,7 +26,7 @@ let phi1 t = 1. / (ALPHA * t + 2.)
 
 let alpha x = 1. / (x + 1.)
 
-let d2Alpha x = -(-2. * x - 2.) / (x + 1.) ** 4.
+let d2Alpha x = 2. / (x + 1.) ** 3.
 
 let beta x = -ALPHA / (1. + x) ** 2.
 
@@ -64,12 +64,12 @@ let t =
 let matrixY = calcY x t
     
 for i = M downto 0 do
-    printf "%8.4f" (float i / 10.)
+    printf $"%8.4f{float i / 10.}"
     for j in 0..M do
-        printf "%8.4f" matrixY[j, i]
+        printf $"%8.4f{matrixY[j, i]}"
     printfn ""
-printf "  T / X "
+printf "  T // X"
 for i in 0..M do
-    printf "%8.4f" (float i / 10.)
+    printf $"%8.4f{float i / 10.}"
 
 printfn ""

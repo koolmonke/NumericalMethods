@@ -4,7 +4,7 @@ let M = 10
 
 let N = 10
 
-let var = 17
+let var = 19
 
 let a = 1
 
@@ -64,7 +64,12 @@ let t =
 let matrixY = calcY x t
     
 for i = M downto 0 do
-    printf "t = %8.4f |" (float i / 10.)
+    printf "%8.4f" (float i / 10.)
     for j in 0..M do
         printf "%8.4f" matrixY[j, i]
     printfn ""
+printf "  T / X "
+for i in 0..M do
+    printf "%8.4f" (float i / 10.)
+
+printfn ""

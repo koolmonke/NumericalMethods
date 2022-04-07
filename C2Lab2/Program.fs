@@ -1,3 +1,4 @@
+open System
 open MatrixArithmetic
 
 let M = 10
@@ -62,14 +63,5 @@ let t =
     Vector(seq { for i in 0 .. N -> float i * Mu })
     
 let matrixY = calcY x t
-    
-for i = M downto 0 do
-    printf $"%8.4f{float i / 10.}"
-    for j in 0..M do
-        printf $"%8.4f{matrixY[j, i]}"
-    printfn ""
-printf "  T // X"
-for i in 0..M do
-    printf $"%8.4f{float i / 10.}"
 
-printfn ""
+Console.WriteLine(matrixY.ToGridSolutionString())

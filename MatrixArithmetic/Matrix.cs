@@ -204,7 +204,7 @@ namespace MatrixArithmetic
             }
         }
 
-        public override string ToString() => ToString(" #0.0000;-#0.0000; 0.0000");
+        public override string ToString() => ToString(MatrixElementFormat);
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -229,6 +229,34 @@ namespace MatrixArithmetic
                     builder.AppendLine();
                 }
             }
+
+            return builder.ToString();
+        }
+
+        private const string MatrixElementFormat = " #0.0000;-#0.0000; 0.0000";
+        public string ToGridSolutionString()
+        {
+            var builder = new StringBuilder();
+            
+            for (int i = M - 1; i >= 0; i--)
+            {
+                builder.Append((i / 10d).ToString(MatrixElementFormat));
+                for (int j = 0; j < M - 1; j++)
+                {
+                    
+                    builder.Append(this[j, i].ToString(MatrixElementFormat));
+                }
+
+                builder.AppendLine();
+            }
+
+            builder.Append(" T // X");
+            for (int i = 0; i < M - 1; i++)
+            {
+                builder.Append((i / 10d).ToString(MatrixElementFormat));
+            }
+
+            builder.AppendLine();
 
             return builder.ToString();
         }

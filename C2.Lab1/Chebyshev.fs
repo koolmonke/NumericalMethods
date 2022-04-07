@@ -1,4 +1,4 @@
-﻿module C2Lab1.Chebyshev
+﻿module C2.Lab1.Chebyshev
 
 open System
 

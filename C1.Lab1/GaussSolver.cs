@@ -2,7 +2,7 @@
 using System.Linq;
 using MatrixArithmetic;
 
-namespace C1Lab1
+namespace C1.Lab1
 {
     public class GaussSolver
     {

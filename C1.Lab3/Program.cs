@@ -3,7 +3,7 @@ using MatrixArithmetic;
 using MatrixArithmetic.Norms;
 using static System.Math;
 
-namespace C1Lab3
+namespace C1.Lab3
 {
     internal static class Program
     {

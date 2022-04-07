@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using MatrixArithmetic;
 
-namespace C1Lab2
+namespace C1.Lab2
 {
     public class GivensMethod
     {

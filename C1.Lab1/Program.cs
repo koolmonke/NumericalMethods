@@ -2,7 +2,7 @@
 using System.Globalization;
 using MatrixArithmetic;
 
-namespace C1Lab1
+namespace C1.Lab1
 {
     internal static class Program
     {

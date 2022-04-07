@@ -1,5 +1,5 @@
-open C1Lab1
-open C2Lab1.Integrate
+open C1.Lab1
+open C2.Lab1.Integrate
 
 open Functions.Expressions
 open MatrixArithmetic

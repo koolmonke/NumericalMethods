@@ -241,7 +241,7 @@ namespace MatrixArithmetic
             for (int i = M - 1; i >= 0; i--)
             {
                 builder.Append((i / 10d).ToString(MatrixElementFormat));
-                for (int j = 0; j < M - 1; j++)
+                for (int j = 0; j < N; j++)
                 {
                     
                     builder.Append(this[j, i].ToString(MatrixElementFormat));
@@ -251,7 +251,7 @@ namespace MatrixArithmetic
             }
 
             builder.Append(" T // X");
-            for (int i = 0; i < M - 1; i++)
+            for (int i = 0; i < N ; i++)
             {
                 builder.Append((i / 10d).ToString(MatrixElementFormat));
             }

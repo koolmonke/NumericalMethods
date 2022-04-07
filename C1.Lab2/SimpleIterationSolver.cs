@@ -5,6 +5,9 @@ using static System.Math;
 
 namespace C1.Lab2
 {
+    /// <summary>
+    /// Решатель СЛАУ методом простых итераций в качестве первого приближения используется целая часть от метода Гивенса 
+    /// </summary>
     public class SimpleIterationSolver
     {
         public SimpleIterationSolver(INorma norma, Matrix matrix, Vector vector)

@@ -7,6 +7,9 @@ using MoreLinq.Extensions;
 
 namespace MatrixArithmetic;
 
+/// <summary>
+/// Класс численного полинома
+/// </summary>
 public class Polynom : IEnumerable<double>
 {
     private readonly Vector coeff;
@@ -23,7 +26,7 @@ public class Polynom : IEnumerable<double>
         new(left.ZipLongest(right, (l, r) => l + r));
 
     public static Polynom operator *(double left, Polynom right) => new Polynom(right.Select(item => left * item));
-    
+
     public static Polynom operator -(Polynom left, Polynom right) => left + (-right);
 
     public static Polynom operator -(Polynom poly) => new(poly.Select(item => -item));

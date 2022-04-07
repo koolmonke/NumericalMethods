@@ -7,6 +7,9 @@ using System.Text;
 
 namespace MatrixArithmetic
 {
+    /// <summary>
+    /// Класс действительных матриц
+    /// </summary>
     public class Matrix : IEnumerable<double>
     {
         public int N => _repr.GetLength(0);
@@ -234,16 +237,16 @@ namespace MatrixArithmetic
         }
 
         private const string MatrixElementFormat = " #0.0000;-#0.0000; 0.0000";
+
         public string ToGridSolutionString()
         {
             var builder = new StringBuilder();
-            
+
             for (int i = M - 1; i >= 0; i--)
             {
                 builder.Append((i / 10d).ToString(MatrixElementFormat));
                 for (int j = 0; j < N; j++)
                 {
-                    
                     builder.Append(this[j, i].ToString(MatrixElementFormat));
                 }
 
@@ -251,7 +254,7 @@ namespace MatrixArithmetic
             }
 
             builder.Append(" T // X");
-            for (int i = 0; i < N ; i++)
+            for (int i = 0; i < N; i++)
             {
                 builder.Append((i / 10d).ToString(MatrixElementFormat));
             }

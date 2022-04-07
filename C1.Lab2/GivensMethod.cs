@@ -4,8 +4,13 @@ using MatrixArithmetic;
 
 namespace C1.Lab2
 {
+    /// <summary>
+    /// Решатель СЛАУ методом Гивенса
+    /// </summary>
     public class GivensMethod
     {
+        /// <param name="a">Матрица системы</param>
+        /// <param name="f">Вектор свободных членов</param>
         public GivensMethod(Matrix a, Vector f)
         {
             System = a;
@@ -19,6 +24,9 @@ namespace C1.Lab2
         
         public Vector FreeVector { get; }
 
+        /// <summary>
+        /// Решение системы
+        /// </summary>
         public Vector SolutionVector => _solutionVector ??= Solve();
 
         public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);

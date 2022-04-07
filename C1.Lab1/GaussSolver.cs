@@ -4,14 +4,24 @@ using MatrixArithmetic;
 
 namespace C1.Lab1
 {
+    /// <summary>
+    /// Решатель СЛАУ методом Гаусса
+    /// </summary>
     public class GaussSolver
     {
+        /// <param name="matrix">Матрица системы</param>
+        /// <param name="forVector">Вектор свободных членов</param>
         public GaussSolver(Matrix matrix, Vector forVector)
         {
             System = matrix;
             FreeVector = forVector;
         }
 
+        /// <summary>
+        /// Нахождение детерминанта методом Гаусса
+        /// </summary>
+        /// <param name="system">Матрица для которой нужно найти детерминант</param>
+        /// <returns>Детерминант</returns>
         public static double Det(Matrix system)
         {
             Matrix matrix = system.Copy();
@@ -60,7 +70,11 @@ namespace C1.Lab1
 
             return det;
         }
-
+        /// <summary>
+        /// Нахождение обратной матрицы методом Гаусса через решение N СЛАУ
+        /// </summary>
+        /// <param name="system">матрица размерности N*N обратную матрицу которой нужно найти</param>
+        /// <returns>обратная матрица</returns>
         public static Matrix Inv(Matrix system)
         {
             var vectors = ParallelEnumerable.Range(0, system.N)
@@ -86,6 +100,9 @@ namespace C1.Lab1
 
         public Matrix System { get; }
 
+        /// <summary>
+        /// Вектор решения системы
+        /// </summary>
         public Vector SolutionVector => _solutionVector ??= Solve();
 
         private Vector? _solutionVector;
@@ -107,6 +124,9 @@ namespace C1.Lab1
         }
 
 
+        /// <summary>
+        /// Проверка решения
+        /// </summary>
         public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);
 
         private static Matrix Eliminate(Matrix input)

@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace MatrixArithmetic
 {
+    /// <summary>
+    /// Класс действительных векторов
+    /// </summary>
     public class Vector : IEnumerable<double>
     {
         IEnumerator<double> IEnumerable<double>.GetEnumerator() => ((IEnumerable<double>) _repr).GetEnumerator();

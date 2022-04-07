@@ -11,4 +11,3 @@ let Roots degree =
                 / (2. * float degree)
             )
     }
-    |> Seq.cache

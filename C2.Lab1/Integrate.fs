@@ -1,17 +1,7 @@
 ﻿module C2.Lab1.Integrate
 
 open System
-open MatrixArithmetic
 open Microsoft.FSharp.Core
-
-
-let rec Process degree =
-    match degree with
-    | 0 -> Polynom([ 1. ])
-    | 1 -> Polynom([ 0.; 1. ])
-    | n ->
-        2. * Polynom([ 0.; 1. ]) * (Process(n - 1))
-        - Process(n - 2)
 
 let integrate (left, right, nodes: uint) func =
     let roots = Chebyshev.Roots nodes

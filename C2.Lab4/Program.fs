@@ -1,6 +1,6 @@
 open C2.Lab4
 
-let var = 17
+let var = 19
 
 let alpha = 2. + 0.5 * float var
 

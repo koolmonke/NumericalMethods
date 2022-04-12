@@ -38,7 +38,7 @@ namespace C1.Lab1
                     }
                 }
 
-                if (Math.Abs(matrix[k, i]) < Constants.Epsilon)
+                if (Math.Abs(matrix[k, i]) < 1e-10)
                 {
                     return 0;
                 }
@@ -58,7 +58,7 @@ namespace C1.Lab1
 
                 for (int j = 0; j < n; j++)
                 {
-                    if (j != i && Math.Abs(matrix[j, i]) > Constants.Epsilon)
+                    if (j != i && Math.Abs(matrix[j, i]) > 1e-10)
                     {
                         for (k = i + 1; k < n; k++)
                         {
@@ -176,7 +176,7 @@ namespace C1.Lab1
         {
             var coefficient = 1.0 / input[row, col];
 
-            if (Math.Abs(coefficient - 1) < Constants.Epsilon)
+            if (Math.Abs(coefficient - 1) < 1e-10)
                 return;
 
             for (; col < colCount; col++)

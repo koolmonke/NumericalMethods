@@ -4,11 +4,14 @@ open C2.Lab1.Integrate
 open Functions.Expressions
 open MatrixArithmetic
 
+[<Literal>]
 let variant = 19
+
+[<Literal>]
+let n = 3u
 
 let x = Var "x"
 
-let n = 3u
 
 let xLeft = 0.
 

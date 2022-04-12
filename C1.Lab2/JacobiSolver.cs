@@ -47,7 +47,7 @@ namespace C1.Lab2
 
                 error = CalcError(x, x0);
                 x0 = x.Copy();
-            } while (error >= Constants.Epsilon6);
+            } while (error >= 1e-6);
 
             return x.ToVector();
         }

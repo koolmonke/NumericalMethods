@@ -1,12 +1,15 @@
 open C2.Lab4
 
+[<Literal>]
 let var = 19
 
-let alpha = 2. + 0.5 * float var
-
+[<Literal>]
 let T = 1.
 
+[<Literal>]
 let h = 0.1
+
+let alpha = 2. + 0.5 * float var
 
 let n = 1 + int (T / h)
 

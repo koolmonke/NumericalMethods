@@ -37,7 +37,7 @@ namespace C1.Lab2
             {
                 xkp = xk;
                 xk = FreeVector.Sub(System.Multiply(xk)).Multiply(_tau).Add(xk);
-            } while (Norma.VectorNorm(xkp.Sub(xk)) > Constants.Epsilon6);
+            } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-6);
 
             return xk;
         }

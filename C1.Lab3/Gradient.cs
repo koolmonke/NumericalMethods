@@ -38,7 +38,7 @@ namespace C1.Lab3
                 var f = System.Apply(xk);
                 xk -= NextTau(jac, f) * (jac.Transpose() * f);
                 CounterIteration++;
-            } while (Norma.VectorNorm(xk - xkp) > Constants.Epsilon3);
+            } while (Norma.VectorNorm(xk - xkp) > 1e-3);
 
             return xk;
         }

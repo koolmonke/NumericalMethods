@@ -41,7 +41,7 @@ namespace C1.Lab3
                 var gauss = new GaussSolver(jac, -f).SolutionVector;
                 xk += gauss;
                 CounterIteration++;
-            } while (Norma.VectorNorm(xk - xkp) > Constants.Epsilon6);
+            } while (Norma.VectorNorm(xk - xkp) > 1e-6);
 
             return xk;
         }

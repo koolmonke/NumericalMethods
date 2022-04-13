@@ -9,6 +9,7 @@
         <Compile Include="RungeKutta.fs" />
         <Compile Include="Hoyna.fs" />
         <Compile Include="Euler.fs" />
+        <Compile Include="Adams.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 

@@ -58,8 +58,8 @@ for (int t = 1; t < limitT; ++t)
         // Find other alpha_n and betta_n, n > 1
         alpha[x] = b / (c - alpha[x - 1] * b);
         betta[x] = (stepT * FunctionF(nodesX[x], nodesT[t]) +
-                          implicitFiniteDifferenceScheme[x, t - 1] + a * betta[x - 1]) /
-                         (c - alpha[x - 1] * a);
+                    implicitFiniteDifferenceScheme[x, t - 1] + a * betta[x - 1]) /
+                   (c - alpha[x - 1] * a);
     }
 
     implicitFiniteDifferenceScheme[limitX - 1, t] = EdgeFunc(nodesT[t]);
@@ -69,4 +69,4 @@ for (int t = 1; t < limitT; ++t)
     }
 }
 
-Console.WriteLine(explicitFiniteDifferenceScheme.ToGridSolutionString());
+Console.WriteLine(implicitFiniteDifferenceScheme.ToGridSolutionString());

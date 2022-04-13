@@ -1,16 +1,22 @@
 open System
 open MatrixArithmetic
 
+[<Literal>]
 let M = 10
 
+[<Literal>]
 let N = 10
 
+[<Literal>]
 let var = 19
 
+[<Literal>]
 let a = 1
 
+[<Literal>]
 let l = 1
 
+[<Literal>]
 let T = 1
 
 let h = float l / float N

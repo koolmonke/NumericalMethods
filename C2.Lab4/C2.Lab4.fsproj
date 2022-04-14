@@ -10,7 +10,12 @@
         <Compile Include="RungeKutta.fs" />
         <Compile Include="Hoyna.fs" />
         <Compile Include="Euler.fs" />
+        <Compile Include="Adams4.fs" />
         <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\MatrixArithmetic\MatrixArithmetic.csproj" />
     </ItemGroup>
 
 </Project>

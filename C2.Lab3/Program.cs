@@ -6,8 +6,6 @@ const double stepX = 0.1;
 const double stepT = 0.01;
 var s = stepT / Math.Pow(stepX, 2);
 // Coefficients for TMA
-var a = s;
-var b = s;
 var c = 1.0 + 2.0 * s;
 
 var nodesX = Enumerable.Range(0, limitX).Select(item => item * stepX).ToVector();
@@ -56,10 +54,10 @@ for (int t = 1; t < limitT; ++t)
     for (int x = 1; x < limitX; ++x)
     {
         // Find other alpha_n and betta_n, n > 1
-        alpha[x] = b / (c - alpha[x - 1] * b);
+        alpha[x] = s / (c - alpha[x - 1] * s);
         betta[x] = (stepT * FunctionF(nodesX[x], nodesT[t]) +
-                    implicitFiniteDifferenceScheme[x, t - 1] + a * betta[x - 1]) /
-                   (c - alpha[x - 1] * a);
+                    implicitFiniteDifferenceScheme[x, t - 1] + s * betta[x - 1]) /
+                   (c - alpha[x - 1] * s);
     }
 
     implicitFiniteDifferenceScheme[limitX - 1, t] = EdgeFunc(nodesT[t]);

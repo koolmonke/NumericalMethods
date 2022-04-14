@@ -1,6 +1,6 @@
 ﻿module C2.Lab4.RungeKutta
 
-let inline ( *** ) (left: float) (a1: float, a2: float) = (left * a1, left * a2)
+open C2.Lab4.Operators
 
 let solve f12 n tau =
     let rec loop i (y1, y2) =

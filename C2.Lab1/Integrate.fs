@@ -3,7 +3,7 @@
 open System
 open Microsoft.FSharp.Core
 
-let integrate (left, right, nodes: uint) func =
+let integrate (left, right, nodes) func =
     let roots = Chebyshev.Roots nodes
     let len = (right - left) / 2.
     let mid = (right + left) / 2.

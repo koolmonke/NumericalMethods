@@ -23,7 +23,7 @@ namespace MatrixArithmetic
             set => _repr[i] = value;
         }
 
-        public Vector Copy() => new Vector(_repr);
+        public Vector Copy() => new(_repr);
 
         public static double operator *(Vector self, Vector other)
         {
@@ -114,7 +114,7 @@ namespace MatrixArithmetic
 
     public static class VectorExt
     {
-        public static Vector ToVector(this IEnumerable<double> enumerable) => new Vector(enumerable.ToArray());
+        public static Vector ToVector(this IEnumerable<double> enumerable) => new(enumerable.ToArray());
     }
 
     public class VectorDifferentDimException : Exception

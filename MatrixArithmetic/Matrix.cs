@@ -146,9 +146,6 @@ namespace MatrixArithmetic
             }
         }
 
-        public Matrix ExtractColumns(int startCol, int endCol) =>
-            ExtractColumns(Enumerable.Range(startCol, endCol - startCol + 1).ToArray());
-
         public Matrix ConcatHorizontally(Matrix other)
         {
             int m = M + other.M;

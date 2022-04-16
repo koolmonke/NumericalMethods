@@ -1,24 +1,22 @@
 ﻿using MatrixArithmetic;
 
+const double variant = 19;
 const int limitT = 6;
 const int limitX = 11;
 const double stepX = 0.1;
 const double stepT = 0.01;
-var s = stepT / Math.Pow(stepX, 2);
+const double s = stepT / (stepX * stepX);
 // Coefficients for TMA
-var c = 1.0 + 2.0 * s;
+const double c = 1.0 + 2.0 * s;
 
 var nodesX = Enumerable.Range(0, limitX).Select(item => item * stepX).ToVector();
 var nodesT = Enumerable.Range(0, limitT).Select(item => item * stepT).ToVector();
 
 var explicitFiniteDifferenceScheme = new Matrix(limitX, limitT);
 
-const double variant = 19;
-const double constAlpha = variant / 2;
+double EdgeFunc(double t) => variant / 2 * t;
 
-double EdgeFunc(double t) => constAlpha * t;
-
-double FunctionF(double x, double t) => constAlpha * (Math.Pow(x, 2) - 2 * t);
+double FunctionF(double x, double t) => variant / 2 * (Math.Pow(x, 2) - 2 * t);
 
 // Explicit Finite Difference Scheme
 for (int t = 0; t < limitT; ++t)

@@ -41,7 +41,7 @@ namespace C1.Lab2
                 {
                     if (System[i, j] == 0) continue;
                     _g.Add(GenerateG(i, j));
-                    _a = _g[^1].Multiply(_a);
+                    _a = _g[^1] * _a;
                 }
             }
 
@@ -64,7 +64,7 @@ namespace C1.Lab2
         {
             _q = _q.Transpose();
 
-            Vector qb = _q.Multiply(_f);
+            var qb = _q * _f;
             var result = new Vector(qb.N);
 
             for (int i = qb.N - 1; i >= 0; i--)
@@ -91,7 +91,7 @@ namespace C1.Lab2
             {
                 _g[i] = _g[i].Transpose();
 
-                _q = _q.Multiply(_g[i]);
+                _q *= _g[i];
             }
         }
 

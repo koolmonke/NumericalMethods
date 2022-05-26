@@ -25,7 +25,7 @@ namespace C1.Lab2
         public Vector SolutionVector => _solution ??= Solve();
 
         public Vector Residual =>
-            System.Multiply(SolutionVector).Sub(FreeVector);
+            System * SolutionVector - FreeVector;
 
         private Vector Solve()
         {
@@ -36,8 +36,8 @@ namespace C1.Lab2
             do
             {
                 xkp = xk;
-                xk = FreeVector.Sub(System.Multiply(xk)).Multiply(_tau).Add(xk);
-            } while (Norma.VectorNorm(xkp.Sub(xk)) > 1e-6);
+                xk = (FreeVector - System * xk) * _tau + xk;
+            } while (Norma.VectorNorm(xkp - xk) > 1e-6);
 
             return xk;
         }

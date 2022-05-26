@@ -43,7 +43,7 @@ namespace C1.Lab1
             Console.WriteLine(matrixInv);
 
             Console.WriteLine("Обратная матрица а умноженная на матрицу а");
-            var multiplyResult = matrixInv.Multiply(a);
+            var multiplyResult = matrixInv * a;
             Console.WriteLine(multiplyResult);
         }
     }

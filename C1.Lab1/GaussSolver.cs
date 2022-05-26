@@ -127,7 +127,7 @@ namespace C1.Lab1
         /// <summary>
         /// Проверка решения
         /// </summary>
-        public Vector Residual => System.Multiply(SolutionVector).Sub(FreeVector);
+        public Vector Residual => System * SolutionVector - FreeVector;
 
         private static Matrix Eliminate(Matrix input)
         {

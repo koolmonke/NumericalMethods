@@ -78,7 +78,7 @@ let gaussSolution = GaussSolver(a, bVector).SolutionVector
 printfn $"{gaussSolution}"
 
 let solution =
-    (seq { for i in 1 .. (int n) -> phi (float i) * Val gaussSolution[int (i - 1)] })
+    seq { for i in 1 .. int n -> phi (float i) * Val gaussSolution[int (i - 1)] }
     |> Seq.reduce (+)
     |> (+) (phi 0)
     |> (*) (Val -1.)

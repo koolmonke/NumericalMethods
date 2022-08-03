@@ -139,7 +139,7 @@ namespace C1.Lab1
             {
                 int? pivotRow = FindPivot(output, numPivots, col, input.N);
 
-                if (pivotRow == null)
+                if (pivotRow == -1)
                     continue;
 
                 ReduceRow(output, pivotRow.Value, col, input.M);
@@ -150,18 +150,16 @@ namespace C1.Lab1
                 pivotRow = numPivots;
                 numPivots++;
 
-                for (int tmpRow = 0; tmpRow < pivotRow; tmpRow++)
+                for (int tmpRow = 0; tmpRow < input.N; tmpRow++)
                     EliminateRow(output, tmpRow, pivotRow.Value, col, input.M);
-
-                for (int tmpRow = pivotRow.Value; tmpRow < input.N; tmpRow++)
-                    EliminateRow(output, tmpRow, pivotRow.Value, col, input.M);
+                
             }
 
 
             return output;
         }
 
-        private static int? FindPivot(Matrix input, int startRow, int col, int rowCount)
+        private static int FindPivot(Matrix input, int startRow, int col, int rowCount)
         {
             for (int i = startRow; i < rowCount; i++)
             {
@@ -169,7 +167,7 @@ namespace C1.Lab1
                     return i;
             }
 
-            return null;
+            return -1;
         }
 
         private static void ReduceRow(Matrix input, int row, int col, int colCount)

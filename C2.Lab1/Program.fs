@@ -20,7 +20,7 @@ let xRight = 1.5 - float variant / 25.
 let muLeft = float variant / 2. - 1.
 let muRight = 0.
 
-let xLenght = xRight - xLeft
+let xLength = xRight - xLeft
 
 let k = x ** Val 0.5 + Val(float variant / 3.)
 
@@ -34,7 +34,7 @@ let phi k =
     if k = 0. then
         let xCoeff = muLeft - muRight
         let freeCoeff = xLeft * muRight - xRight * muLeft
-        ((Val xCoeff) * x + Val freeCoeff) / Val xLenght
+        ((Val xCoeff) * x + Val freeCoeff) / Val xLength
     else
         (Val xRight - x) * (x - Val xLeft) ** Val k
 
@@ -87,7 +87,7 @@ printfn $"{show solution}"
 
 printfn "%A %A" xLeft muLeft
 
-for i in xLeft .. xLenght / 4.0 .. xRight do
+for i in xLeft .. xLength / 4.0 .. xRight do
     printfn "%A %A" i (evalf solution "x" i)
 
 printfn "%A %A" xRight muRight

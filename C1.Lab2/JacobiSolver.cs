@@ -7,8 +7,9 @@ namespace C1.Lab2
 {
     public class JacobiSolver
     {
-        public JacobiSolver(Matrix matrix, Vector vector)
+        public JacobiSolver(INorma norma, Matrix matrix, Vector vector)
         {
+            Norma = norma;
             System = matrix;
             FreeVector = vector;
         }
@@ -17,11 +18,12 @@ namespace C1.Lab2
 
         public Vector FreeVector { get; }
 
+        public INorma Norma { get; }
 
         public Vector SolutionVector => _solutionVector ??= Solve();
 
         public Vector Residual =>
-            System.Multiply(SolutionVector).Sub(FreeVector);
+            System * SolutionVector - FreeVector;
 
         private Vector Solve()
         {
@@ -45,19 +47,13 @@ namespace C1.Lab2
                     }
                 }
 
-                error = CalcError(x, x0);
+                error = Norma.VectorNorm(x - x0);
                 x0 = x.Copy();
             } while (error >= 1e-6);
 
-            return x.ToVector();
+            return x;
         }
 
         private Vector? _solutionVector;
-
-        private static double CalcError(IEnumerable<double> a, IEnumerable<double> b)
-        {
-            return new TaxiCabNorm().VectorNorm(a.Zip(b)
-                .Select(item => item.First - item.Second).ToVector());
-        }
     }
 }

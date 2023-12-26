@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "m1-lab4"
+version = "0.1.0"
+description = ""
+authors = ["koolmonkey <verybigfolder@yandex.ru>"]
+readme = "README.md"
+packages = [{include = "m1"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = "^1.26.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

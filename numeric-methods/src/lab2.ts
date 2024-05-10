@@ -4,6 +4,7 @@
 Хакимов Артур
 */
 
+import { printTable } from "./printTable";
 import { computeLaplacian, linspace, Matrix, meshGrid } from "./utils";
 
 type IterData = {
@@ -65,22 +66,6 @@ const solvePoisson = (
   return { U, iterData };
 };
 
-const printMatrixWithIndices = (matrix: Matrix, size: number) => {
-  const matrixData = matrix.data;
-  const x = linspace(0, 1, size + 1);
-  const y = linspace(0, 1, size + 1);
-  const footer = `          ${x.map((x) => x.toFixed(4)).join("  ")}`;
-  for (let i = matrixData.length - 1; i >= 0; i--) {
-    const rowOutput = matrixData[i]
-      .map((val) =>
-        Math.sign(val) !== -1 ? ` ${val.toFixed(4)}` : val.toFixed(4)
-      )
-      .join(" ");
-    console.log(`${y[i].toFixed(4)} | ${rowOutput}`);
-  }
-  console.log(footer);
-};
-
 export const lab2 = () => {
   const size = 10;
   const step = 0.1;
@@ -89,9 +74,9 @@ export const lab2 = () => {
 
   for (const iter of iterData) {
     console.log(`Итерация ${iter.k + 1}`);
-    printMatrixWithIndices(U, size);
+    printTable(U);
   }
 
   console.log("Точное решение");
-  printMatrixWithIndices(U, size);
+  printTable(U);
 };

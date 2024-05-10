@@ -4,6 +4,7 @@
 Хакимов Артур
 */
 
+import { printTable } from "./printTable";
 import { Matrix } from "./utils";
 
 const k1 = (x1: number, _x2: number) => 1 + x1 / 2;
@@ -94,38 +95,6 @@ function* solvePde(n: number) {
     yield y.copy();
   }
   return y;
-}
-
-function printTable({ data }: Matrix) {
-  const n = data.length - 1;
-  const colWidths = [...Array(n + 1).keys()].map((i) => {
-    return Math.max(
-      (i / n).toFixed(5).length,
-      Math.max(...data[i].map((j) => j.toFixed(5).length))
-    );
-  });
-  const headerWidth = Math.max("x1\\x2".length, 5);
-
-  const header = `│ ${"x1\\x2".padStart(headerWidth)} │ ${data[0]
-    .map((_, i) => (i / n).toFixed(5).padStart(colWidths[i], " "))
-    .join(" │ ")} │`;
-  const totalWidth = header.length - 2;
-
-  console.log(`┌${"─".repeat(totalWidth)}┐`);
-  console.log(header);
-  console.log(`├${"─".repeat(totalWidth)}┤`);
-
-  for (let i = 0; i < data.length; i++) {
-    const row = `│ ${(i / n).toFixed(2).padStart(headerWidth, " ")} │ ${data[i]
-      .map((j, k) => j.toFixed(5).padStart(colWidths[k], " "))
-      .join(" │ ")} │`;
-    console.log(row);
-    if (i < n) {
-      console.log(`├${"─".repeat(totalWidth)}┤`);
-    } else {
-      console.log(`└${"─".repeat(totalWidth)}┘`);
-    }
-  }
 }
 
 export const lab4 = () => {

@@ -5,5 +5,6 @@ export default {
       entry: ["./src/main.ts"],
       name: "number-methods",
     },
+    minify: false,
   },
 };

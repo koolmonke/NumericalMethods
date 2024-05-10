@@ -37,7 +37,7 @@ const solvePoisson = (
     const AResidual = computeLaplacian(residual, step);
 
     let UNew = U.sub(
-      residual.mul(residual.pow(2).sum() / residual.matmul(AResidual).sum())
+      residual.mul(residual.pow(2).sum() / residual.mul(AResidual).sum())
     );
 
     if (previousU !== null && previousU.isClose(UNew, tolerance) && k > 50) {
@@ -66,7 +66,7 @@ const solvePoisson = (
 };
 
 const printMatrixWithIndices = (matrix: Matrix, size: number) => {
-  const matrixData = matrix.transpose().data;
+  const matrixData = matrix.data;
   const x = linspace(0, 1, size + 1);
   const y = linspace(0, 1, size + 1);
   const footer = `          ${x.map((x) => x.toFixed(4)).join("  ")}`;
@@ -89,9 +89,9 @@ export const lab2 = () => {
 
   for (const iter of iterData) {
     console.log(`Итерация ${iter.k + 1}`);
-    printMatrixWithIndices(U.mul(10), size);
+    printMatrixWithIndices(U, size);
   }
 
   console.log("Точное решение");
-  printMatrixWithIndices(U.mul(10), size);
+  printMatrixWithIndices(U, size);
 };

@@ -1,3 +1,3 @@
-import { lab2 } from "./lab2";
+import { lab4 } from "./lab4";
 
-lab2();
+lab4();

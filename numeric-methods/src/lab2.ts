@@ -1,3 +1,9 @@
+/*
+Решение задачи Неймана для уравнения Пуассона методом скорейшего спуска
+Вариант 29
+Хакимов Артур
+*/
+
 import { computeLaplacian, linspace, Matrix, meshGrid } from "./utils";
 
 type IterData = {

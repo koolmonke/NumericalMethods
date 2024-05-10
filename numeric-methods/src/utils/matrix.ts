@@ -95,4 +95,14 @@ export class Matrix {
 
     return new Matrix(result);
   }
+
+  public copy() {
+    return new Matrix(structuredClone(this.data));
+  }
+
+  public map(f: (arg: number, i: number, j: number) => number) {
+    return new Matrix(
+      this.data.map((row, i) => row.map((val, j) => f(val, i, j)))
+    );
+  }
 }

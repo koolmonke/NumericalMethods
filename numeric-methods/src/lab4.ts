@@ -4,6 +4,7 @@
 Хакимов Артур
 */
 
+import { imap, izip, range, reduce } from "itertools";
 import { printTable } from "./printTable";
 import { Matrix } from "./utils";
 
@@ -36,16 +37,12 @@ const getParameters = (n: number) => {
   const tau =
     h ** 2 /
     (2 *
-      Math.max(
-        ...Array.from(
-          (function* (N: number) {
-            for (let i = 0; i < N + 1; i++) {
-              for (let j = 0; j < N + 1; j++) {
-                yield k1(i * h, j * h);
-              }
-            }
-          })(n)
-        )
+      reduce(
+        imap(izip(range(0, n + 1), range(0, n + 1)), ([i, j]) =>
+          k1(i * h, j * h)
+        ),
+        (acc, cur) => Math.max(acc, cur),
+        -Infinity
       ));
   return { tau, h };
 };
